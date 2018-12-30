@@ -116,6 +116,7 @@
     <ClCompile Include="Cities.cpp" />
     <ClCompile Include="Flight.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="managerwid.cpp" />
     <ClCompile Include="Passengers.cpp" />
     <ClCompile Include="qtfirst.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -129,6 +130,7 @@
     <QtMoc Include="qtfirst.h" />
   </ItemGroup>
   <ItemGroup>
+    <QtUic Include="managerwid.ui" />
     <QtUic Include="qtfirst.ui" />
   </ItemGroup>
   <ItemGroup>
@@ -137,6 +139,12 @@
   <ItemGroup>
     <ClInclude Include="Cities.h" />
     <ClInclude Include="Flight.h" />
+    <QtMoc Include="managerwid.h">
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName)\.;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWebChannel;$(QTDIR)\include\QtWidgets</IncludePath>
+      <Define Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;QT_WEBCHANNEL_LIB;QT_WIDGETS_LIB</Define>
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName)\.;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWebChannel;$(QTDIR)\include\QtWidgets</IncludePath>
+      <Define Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_WEBCHANNEL_LIB;QT_WIDGETS_LIB</Define>
+    </QtMoc>
     <ClInclude Include="Passengers.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="System.h" />

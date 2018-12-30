@@ -19,37 +19,62 @@ System::~System(){
 void System::Delay(string FlightID, Time delay){
 
 		Flight* f = flightmanager.FindFlightByID(FlightID);
+		if (f != nullptr) {
+			f->delayornot = true;
+			/*PNode* p = f->GetPassengers();
 
-		PNode* p = f->GetPassengers();
+			cout << "航班 " << FlightID << " 将延迟" << delay.Hour << "时" << delay.Min << "分" << "," << "以下是航班延迟乘客的ID:" << endl;
 
-		cout << "ID为" << FlightID << "的航班将延迟至" << delay.Hour << "时" << delay.Min << "分" << "," << "以下是航班延迟乘客的ID:" << endl;
+			while (p->next != NULL) {
 
-		while (p->next != NULL) {
+				cout << p->pp->ID << " ";
 
-			cout << p->pp->ID << " ";
+				p = p->next;
 
-			p = p->next;
-
+			}*/
+			Time time = delay;
+			f->TakeOff = f->TakeOff + time;
+			f->Land = f->Land + time;
+			if (!f->IsHalfFlight&&f->FirstHalf != nullptr&&f->SecondHalf != nullptr) {
+				f->FirstHalf->TakeOff = f->FirstHalf->TakeOff + time;
+				f->FirstHalf->Land = f->FirstHalf->Land + time;
+				f->SecondHalf->TakeOff = f->SecondHalf->TakeOff + time;
+				f->SecondHalf->Land = f->SecondHalf->Land + time;
+			}
 		}
-
 }
 
 void System::Cancel(string FlightID){
 	Flight* f = flightmanager.FindFlightByID(FlightID);
+	if (f != nullptr) {
+		/*PNode* p = f->GetPassengers();
 
-	PNode* p = f->GetPassengers();
+		cout << "ID为" << FlightID << "的航班将取消" << "," << "以下是航班取消乘客的ID:" << endl;
+		int count = 0;
+		while (p->next != NULL) {
 
-	cout << "ID为" << FlightID << "的航班将取消" << "," << "以下是航班取消乘客的ID:" << endl;
+			cout << p->pp->ID << " ";
+			count++;
+			if (count == 10) { count = 0; cout << endl; }
+			p = p->next;
 
-	while (p->next != NULL) {
-
-		cout << p->pp->ID << " ";
-
-		p = p->next;
-
+		}
+		cout << endl;
+		FNode* head = flightmanager.SortByPrice(FindOthers(f));
+		FNode* temp = head;*/
+		DelFlight(f); f = nullptr;//删除航班
+		/*while (temp != nullptr) {
+			if (!temp->fp->delayornot) { f = temp->fp; break; }
+			temp = temp->next;
+		}
+		if (f == nullptr) {
+			cout << "航班均已延误" << endl;
+		}
+		else {
+			cout << "推荐未延误航班为 " << f->ID << " 号航班" << endl;
+		}
+		flightmanager.Destroyer(head);*///释放空间
 	}
-
-
 }
 
 Flight * System::LoadFlights()//直接读取全部航班信息
@@ -243,6 +268,11 @@ bool System::DelFlight(Flight * flight){
 	citygraph.DelFlight(flight);
 	flightmanager.DelFlight(flight);
 	return true;
+}
+
+int System::GetCityID(string city)
+{
+	return citygraph.GetIDFromName(city);
 }
 
 string System::FindCityFromID(int index)

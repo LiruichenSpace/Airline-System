@@ -15,6 +15,7 @@ public:
 	void ShowFlight(Flight* flight);
 	void AddNewFlight(Flight* flight);
 	bool DelFlight(Flight* flight);
+	int GetCityID(string city);
 	string FindCityFromID(int index);
 	Flight* FindFlight(string flightID);
 	Flight* BuildFlight();

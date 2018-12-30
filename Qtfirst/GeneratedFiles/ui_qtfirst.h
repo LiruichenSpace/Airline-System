@@ -14,9 +14,7 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QStatusBar>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -33,7 +31,7 @@ public:
     QLineEdit *managerpassword;
     QLabel *label_3;
     QLabel *label_4;
-    QPushButton *managerlogin_2;
+    QPushButton *managerlogin;
     QLabel *label_5;
     QLineEdit *flightstatus;
     QLabel *label_6;
@@ -67,14 +65,12 @@ public:
     QLabel *label_21;
     QLineEdit *firstprice;
     QLineEdit *secondprice;
-    QMenuBar *menuBar;
-    QStatusBar *statusBar;
 
     void setupUi(QMainWindow *QtfirstClass)
     {
         if (QtfirstClass->objectName().isEmpty())
             QtfirstClass->setObjectName(QString::fromUtf8("QtfirstClass"));
-        QtfirstClass->resize(600, 432);
+        QtfirstClass->resize(600, 447);
         centralWidget = new QWidget(QtfirstClass);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         searchflight = new QPushButton(centralWidget);
@@ -82,7 +78,7 @@ public:
         searchflight->setGeometry(QRect(400, 80, 75, 23));
         label = new QLabel(centralWidget);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(210, 20, 181, 41));
+        label->setGeometry(QRect(240, 20, 141, 41));
         label->setTextFormat(Qt::AutoText);
         label->setWordWrap(false);
         flightID = new QLineEdit(centralWidget);
@@ -103,9 +99,9 @@ public:
         label_4 = new QLabel(centralWidget);
         label_4->setObjectName(QString::fromUtf8("label_4"));
         label_4->setGeometry(QRect(310, 340, 71, 16));
-        managerlogin_2 = new QPushButton(centralWidget);
-        managerlogin_2->setObjectName(QString::fromUtf8("managerlogin_2"));
-        managerlogin_2->setGeometry(QRect(510, 340, 75, 23));
+        managerlogin = new QPushButton(centralWidget);
+        managerlogin->setObjectName(QString::fromUtf8("managerlogin"));
+        managerlogin->setGeometry(QRect(510, 340, 75, 23));
         label_5 = new QLabel(centralWidget);
         label_5->setObjectName(QString::fromUtf8("label_5"));
         label_5->setGeometry(QRect(50, 120, 71, 21));
@@ -206,13 +202,6 @@ public:
         secondprice->setObjectName(QString::fromUtf8("secondprice"));
         secondprice->setGeometry(QRect(480, 300, 51, 20));
         QtfirstClass->setCentralWidget(centralWidget);
-        menuBar = new QMenuBar(QtfirstClass);
-        menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 600, 23));
-        QtfirstClass->setMenuBar(menuBar);
-        statusBar = new QStatusBar(QtfirstClass);
-        statusBar->setObjectName(QString::fromUtf8("statusBar"));
-        QtfirstClass->setStatusBar(statusBar);
 
         retranslateUi(QtfirstClass);
 
@@ -223,11 +212,11 @@ public:
     {
         QtfirstClass->setWindowTitle(QApplication::translate("QtfirstClass", "\350\210\252\347\217\255\347\256\241\347\220\206", nullptr));
         searchflight->setText(QApplication::translate("QtfirstClass", "\346\237\245\350\257\242\350\210\252\347\217\255", nullptr));
-        label->setText(QApplication::translate("QtfirstClass", "<html><head/><body><p><span style=\" font-size:12pt; font-weight:600; color:#ff0000;\">\346\254\242\350\277\216\344\275\277\347\224\250\350\210\252\347\217\255\347\256\241\347\220\206\347\263\273\347\273\237</span></p></body></html>", nullptr));
+        label->setText(QApplication::translate("QtfirstClass", "<html><head/><body><p><span style=\" font-size:12pt; font-weight:600; color:#ff0000;\">\346\254\242\350\277\216\344\275\277\347\224\250\350\210\252\347\217\255\347\263\273\347\273\237</span></p></body></html>", nullptr));
         label_2->setText(QApplication::translate("QtfirstClass", "\350\257\267\350\276\223\345\205\245\350\210\252\347\217\255\345\217\267\357\274\232", nullptr));
         label_3->setText(QApplication::translate("QtfirstClass", "\344\271\230\345\256\242\347\231\273\345\205\245\357\274\232", nullptr));
         label_4->setText(QApplication::translate("QtfirstClass", "\347\256\241\347\220\206\345\221\230\347\231\273\345\205\245\357\274\232", nullptr));
-        managerlogin_2->setText(QApplication::translate("QtfirstClass", "\347\231\273\345\275\225", nullptr));
+        managerlogin->setText(QApplication::translate("QtfirstClass", "\347\231\273\345\275\225", nullptr));
         label_5->setText(QApplication::translate("QtfirstClass", "<html><head/><body><p><span style=\" font-size:11pt; font-weight:600; color:#ff0000;\">\350\210\252\347\217\255\347\212\266\346\200\201\357\274\232</span></p></body></html>", nullptr));
         label_6->setText(QApplication::translate("QtfirstClass", "\350\265\267\351\243\236\347\253\231\357\274\232", nullptr));
         label_7->setText(QApplication::translate("QtfirstClass", "\347\273\217\345\201\234\347\253\231\357\274\232", nullptr));

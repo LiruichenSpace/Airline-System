@@ -54,14 +54,23 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="managerwid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="qtfirst.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="managerwid.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="qtfirst.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="managerwid.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

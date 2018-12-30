@@ -16,4 +16,5 @@ private:
 private slots:
 	void on_searchflight_clicked();
 	void on_managerlogin_clicked();
+	void reshow();
 };
