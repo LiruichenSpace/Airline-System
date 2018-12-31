@@ -2,6 +2,7 @@
 #include<string>
 #include"managerwid.h"
 #include"passengerpage.h"
+#include<qdebug.h>
 using namespace std;
 #pragma execution_character_set("utf-8")
 Qtfirst::Qtfirst(QWidget *parent)
@@ -64,7 +65,7 @@ void Qtfirst::on_userlogin_clicked(){
 	string s((const char*)ui.userid->text().toUtf8().data());
 	if (!s.empty()) {
 		string flight((const char*)ui.flightID->text().toUtf8().data());
-		PassengerPage* passengerpage = new PassengerPage(s, flight, &S);
+		PassengerPage* passengerpage = new PassengerPage(atoi(s.c_str()), flight, &S);
 		this->hide();
 		connect(passengerpage, SIGNAL(sendsignal2()), this, SLOT(reshow()));
 		ui.userid->clear();

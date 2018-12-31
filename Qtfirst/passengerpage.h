@@ -9,7 +9,7 @@ class PassengerPage : public QWidget
 	Q_OBJECT
 
 public:
-	PassengerPage(string passid,string flight,System* s,QWidget *parent = Q_NULLPTR);
+	PassengerPage(int passid,string flight,System* s,QWidget *parent = Q_NULLPTR);
 	~PassengerPage();
 signals:
 	void sendsignal2();
@@ -18,7 +18,7 @@ private:
 	bool println(Flight* fp);
 	void clean();
 	System* S;
-	string passID;
+	int passID;
 	Ui::PassengerPage* ui;
 private slots:
 	void on_back_clicked();

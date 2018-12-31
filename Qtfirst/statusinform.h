@@ -16,7 +16,7 @@ signals:
 private:
 	Ui::statusInform* ui;
 	System* S;
-	void println(Passenger* pp);
+	void println(Passenger* pp,bool flag);
 	void printpassenger(Flight* fp);
 private slots:
 	void on_back_clicked();

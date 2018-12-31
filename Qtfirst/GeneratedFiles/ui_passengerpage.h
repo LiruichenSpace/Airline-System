@@ -145,13 +145,13 @@ public:
         searchflight->setGeometry(QRect(310, 80, 41, 23));
         price = new QPushButton(PassengerPage);
         price->setObjectName(QString::fromUtf8("price"));
-        price->setGeometry(QRect(234, 360, 81, 23));
+        price->setGeometry(QRect(400, 110, 81, 23));
         costtime = new QPushButton(PassengerPage);
         costtime->setObjectName(QString::fromUtf8("costtime"));
-        costtime->setGeometry(QRect(334, 360, 81, 23));
+        costtime->setGeometry(QRect(510, 110, 81, 23));
         left = new QPushButton(PassengerPage);
         left->setObjectName(QString::fromUtf8("left"));
-        left->setGeometry(QRect(430, 360, 81, 23));
+        left->setGeometry(QRect(620, 110, 81, 23));
 
         retranslateUi(PassengerPage);
 

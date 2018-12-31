@@ -47,7 +47,7 @@ Flight::~Flight() {
 	PNode* temp = OnBoard;
 	PNode* p = nullptr;
 	while (temp != nullptr) { p = temp; temp = temp->next; delete p; }
-	temp = Waiting;
+	temp = Waiting; p = nullptr;
 	while (temp != nullptr) { p = temp; temp = temp->next; delete p; }
 	if (!IsHalfFlight) {
 		if (FirstHalf != nullptr)delete FirstHalf;
@@ -117,7 +117,7 @@ void FlightManager::Destroyer(FNode * head){
 
 bool FlightManager::DelFlight(Flight* fp)//乘客操作由flight类析构函数实现
 {
-	if (fp == Head) { Head = fp->next; Head->pre = nullptr; }
+	if (fp == Head) { Head = fp->next; Head->pre = nullptr; fp->next = nullptr; }
 	if (fp->next != nullptr) {
 		fp->next->pre = fp->pre; 
 	}

@@ -75,7 +75,7 @@ void managerWid::on_confirm_clicked(){//调用delay
 				}
 				if (flag) {
 					string s = (const char*)ui->flightID->text().toUtf8().data();
-					//S->Delay(s, curr - time);
+					S->Delay(s, curr - time);
 					statusInform* status = new statusInform(S, S->FindFlight(s), false);
 					connect(status, SIGNAL(sendsigna()), this, SLOT(reshow()));
 					status->show();//子界面出现
@@ -186,7 +186,7 @@ void managerWid::on_cancel_clicked(){
 		statusInform* status = new statusInform(S, S->FindFlight(s), true);
 		connect(status, SIGNAL(sendsigna()), this, SLOT(reshow()));
 		status->show();//子界面出现
-		//S->Cancel(s);
+		S->Cancel(s);
 		on_clean_clicked();
 	}
 }

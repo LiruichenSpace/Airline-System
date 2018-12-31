@@ -1,13 +1,15 @@
 #include "passengerpage.h"
 #include"qmessagebox.h"
+#include<qdebug.h>
 #pragma execution_character_set("utf-8")
 
-PassengerPage::PassengerPage(string passid, string flight, System* s, QWidget *parent)
+PassengerPage::PassengerPage(int passid, string flight, System* s, QWidget *parent)
 	: QWidget(parent),ui(new Ui::PassengerPage),passID(passid),S(s)
 {
 	ui->setupUi(this);
 	this->setAttribute(Qt::WA_DeleteOnClose, 1);
 	Passenger* pp = S->FindPassenger(passid);
+	qDebug() << passID<<endl;
 	if (pp != nullptr) {//////////////已购买状态
 		ui->buy->setEnabled(false);
 		ui->refund->setEnabled(true);
@@ -119,13 +121,20 @@ void PassengerPage::on_buy_clicked(){//只在购买时创建新乘客？
 		else if (ui->half2->isChecked()) {
 			fp = fp->SecondHalf;
 		}
-		QMessageBox message(QMessageBox::Warning, "Warning", u8"即将完成购票，是否确定？", QMessageBox::Yes | QMessageBox::No, NULL);
+		string info;
+		if (fp->LeftTickets > 0) {
+			info = "即将完成购票，是否确定？";
+		}
+		else {
+			info = "余票不足，是否进行预约抢票？";
+		}
+		QMessageBox message(QMessageBox::Warning, "Warning",info.c_str(), QMessageBox::Yes | QMessageBox::No, NULL);
 		bool flag = false;
 		if (message.exec() == QMessageBox::Yes) {
 			flag = true;
 		}
 		if (flag) {
-			//购买操作
+			S->BuyTickets(fp, passID);
 			/////////////////////设为已购买状态
 			ui->buy->setEnabled(false);
 			ui->refund->setEnabled(true);

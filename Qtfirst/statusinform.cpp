@@ -4,6 +4,7 @@ statusInform::statusInform(System* s,Flight*flight,bool flag,QWidget *parent)
 	: QWidget(parent),ui(new Ui::statusInform),S(s)
 {
 	ui->setupUi(this);
+	printpassenger(flight);
 	this->setAttribute(Qt::WA_DeleteOnClose, 1);
 	Flight* fp = nullptr;
 	if (flag)ui->status->setText(u8"È¡Ïû");
@@ -43,6 +44,42 @@ statusInform::statusInform(System* s,Flight*flight,bool flag,QWidget *parent)
 
 statusInform::~statusInform(){
 	delete ui;
+}
+void statusInform::println(Passenger * pp,bool flag){
+	if (flag) {
+		ui->passengers->append(QString::fromLocal8Bit(to_string(pp->ID).c_str()));
+	}
+	else {
+		ui->passengers2->append(QString::fromLocal8Bit(to_string(pp->ID).c_str()));
+	}
+}
+void statusInform::printpassenger(Flight * fp){
+	PNode* temp=fp->OnBoard;
+	while (temp != nullptr) {
+		println(temp->pp, true); temp = temp->next;
+	}
+	temp = fp->Waiting;
+	while (temp != nullptr) {
+		println(temp->pp, false); temp = temp->next;
+	}
+	if (fp->FirstHalf != nullptr&&fp->SecondHalf != nullptr) {
+		temp = fp->FirstHalf->OnBoard;
+		while (temp != nullptr) {
+			println(temp->pp, true); temp = temp->next;
+		}
+		temp = fp->FirstHalf->Waiting;
+		while (temp != nullptr) {
+			println(temp->pp, false); temp = temp->next;
+		}
+		temp = fp->SecondHalf->OnBoard;
+		while (temp != nullptr) {
+			println(temp->pp, true); temp = temp->next;
+		}
+		temp = fp->SecondHalf->Waiting;
+		while (temp != nullptr) {
+			println(temp->pp, false); temp = temp->next;
+		}
+	}
 }
 void statusInform::on_back_clicked() {
 	emit signal();

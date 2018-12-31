@@ -2,17 +2,19 @@
 #include "System.h"
 #include<iostream>
 #include<fstream>
+#include<qdebug.h>
 
 using namespace std;
 
 System::System()
 {
 	LoadFlights();
-	LoadPassenger();
+	LoadPassengers();
 }
 
 
 System::~System(){
+	SavePassengers();
 	SaveFlights();
 }
 
@@ -161,7 +163,7 @@ FNode * System::FindFlightsByAirline(string airline){
 	return flightmanager.FindFlightsByAirline(airline);
 }
 
-void System::ShowFlights(FNode * node){
+/*void System::ShowFlights(FNode * node){
 	ShowHint();
 	node = flightmanager.SortByTickets(node);
 	FNode* temp = node;
@@ -176,9 +178,9 @@ void System::ShowFlights(FNode * node){
 		temp = temp->next;
 	}
 	if (node == nullptr)cout << "未找到目标航班" << endl;
-}
+}*/
 
-void System::ShowFlight(Flight * flight){
+/*void System::ShowFlight(Flight * flight){
 	if (flight != nullptr) {
 		ShowHint();
 		cout << flight->ID << "   " << citygraph.GetCityName(flight->FromCityID) << "       " << flight->TakeOff << "    ";
@@ -188,7 +190,7 @@ void System::ShowFlight(Flight * flight){
 		else cout << "否" << endl;
 	}
 	else cout << "无此航班";
-}
+}*/
 
 Flight * System::FindFlight(string flightID)
 {
@@ -273,13 +275,13 @@ Flight * System::BuildFlight(){
 	return flight;
 }
 
-void System::ShowHint(){
+/*void System::ShowHint(){
 	cout << "航班号  起飞地点  起飞时间  降落地点  降落时间  票价  余票数量  是否有经停站" << endl;
 }
 
 void System::ShowDivider(){
 	cout << "************************************************************************" << endl;
-}
+}*/
 
 void System::AddNewFlight(Flight * flight){
 	flightmanager.AddFlight(flight);
@@ -292,9 +294,47 @@ void System::GetRefund(Passenger * p){
 
 bool System::DelFlight(Flight * flight){
 	if (flight == nullptr)return false;
+	Flight* fp = flight;
+	PNode* temp=fp->OnBoard;
+	while (temp != nullptr) {
+		pmanager.DelPassenger(temp->pp->ID);
+		temp = temp->next;
+	}
+	temp = fp->Waiting;
+	while (temp != nullptr) {
+		pmanager.DelPassenger(temp->pp->ID);
+		temp = temp->next;
+	}
+	if (fp->FirstHalf != nullptr&&fp->SecondHalf != nullptr) {
+		temp = fp->FirstHalf->OnBoard;
+		while (temp != nullptr) {
+			pmanager.DelPassenger(temp->pp->ID);
+			temp = temp->next;
+		}
+		temp = fp->FirstHalf->Waiting;
+		while (temp != nullptr) {
+			pmanager.DelPassenger(temp->pp->ID);
+			temp = temp->next;
+		}
+		temp = fp->SecondHalf->OnBoard;
+		while (temp != nullptr) {
+			pmanager.DelPassenger(temp->pp->ID);
+			temp = temp->next;
+		}
+		temp = fp->SecondHalf->Waiting;
+		while (temp != nullptr) {
+			pmanager.DelPassenger(temp->pp->ID);
+			temp = temp->next;
+		}
+	}
 	citygraph.DelFlight(flight);
 	flightmanager.DelFlight(flight);
 	return true;
+}
+
+bool System::BuyTickets(Flight * flight, int id)
+{
+	return pmanager.BuyTickets(flight,id);
 }
 
 int System::GetCityID(string city)
@@ -365,14 +405,65 @@ bool System::SaveFlights(){
 	return true;
 }
 
+void System::LoadPassengers(){
+	ifstream fin("PassengerData.txt");
+	Passenger* pass = nullptr;
+	Flight* fp = nullptr;
+	if (fin) {
+		string s; char ch; int num;
+		while (!fin.eof())
+		{
+			pass = new Passenger();
+			fin >> s; num = atoi(s.c_str());
+			if (num == -1) { delete pass; break; }
+			pass->ID = num;
+			fin >> s;
+			pass->FromCity = citygraph.GetIDFromName(s);
+			fin >> s;
+			pass->ToCity = citygraph.GetIDFromName(s);
+			fin >> ch;
+			if (ch == 'Y')pass->HaveTicket = true;
+			else pass->HaveTicket = false;
+			fin >> s;
+			fp = flightmanager.FindFlightByID(s);
+			if (fp->FirstHalf != nullptr&&fp->FirstHalf->ToCityID == pass->ToCity)pass->flight = fp->FirstHalf;
+			else if(fp->SecondHalf != nullptr&&fp->SecondHalf->FromCityID == pass->FromCity)pass->flight = fp->SecondHalf;
+			else pass->flight = fp;
+			pmanager.AddPassenger(pass);
+		}
+		fin.close();
+	}
+}
+
+bool System::SavePassengers(){
+	fstream fout;
+	fout.open("PassengerData.txt", ios::out);
+	if (fout) {
+		Passenger* temp = pmanager.head;
+		while (temp != nullptr) {
+			fout << to_string(temp->ID) << "		";
+			fout << citygraph.GetCityName(temp->FromCity) << "	";
+			fout << citygraph.GetCityName(temp->ToCity) << "	";
+			if (temp->HaveTicket)fout << "Y	";
+			else fout << "N	";
+			fout << temp->flight->ID<<"	"<<endl;
+			temp = temp->next;
+		}
+		fout << -1;
+		fout.close();
+		return true;
+	}
+	return false;
+}
+
 Passenger * System::LoadPassenger()
 {
 	Passenger* passenger = new Passenger();
 	return passenger;
 }
-Passenger * System::FindPassenger(string id)
+Passenger * System::FindPassenger(int id)
 {
-	return pmanager.GetPassenger(std::atoi(id.c_str()));
+	return pmanager.GetPassenger(id);
 }
 fstream& operator<<(fstream& os, Time& T) {
 	os << T.Hour << ':' ;

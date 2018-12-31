@@ -14,7 +14,6 @@ public:
 	int ToCity;//用于判断是否是经停乘客
 	Flight* flight;//先检验有无票，无票则在等待抢票
 	Passenger* next;//维持manager中的完整链表
-	Passenger* pre;
 };
 
 /*
@@ -38,7 +37,9 @@ public:
 	Passenger* GetPassenger(int ID);//获取乘客,遍历
 	void GetRefund(Passenger* passenger);//通过flight指针找到对应航班并处理
 	void NewPassenger(Passenger* passenger);//由main函数负责读入信息和组装乘客对象
-	void DelPassenger(int ID);//当乘客到站时删除，此函数保证删除即可
-
+	void DelPassenger(int ID);
+	bool BuyTickets(Flight * flight, int id);
+	//当乘客到站时删除，此函数保证删除即可
+	void AddPassenger(Passenger* p);//仅添加，用来从文件读入
 };
 
