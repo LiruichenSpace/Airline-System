@@ -61,6 +61,7 @@ public:
     QPushButton *back;
     QPushButton *cancel;
     QPushButton *addflight;
+    QPushButton *clean;
 
     void setupUi(QWidget *managerWid)
     {
@@ -188,16 +189,19 @@ public:
         label_15->setGeometry(QRect(290, 130, 71, 21));
         confirm = new QPushButton(managerWid);
         confirm->setObjectName(QString::fromUtf8("confirm"));
-        confirm->setGeometry(QRect(110, 350, 121, 31));
+        confirm->setGeometry(QRect(50, 350, 121, 31));
         back = new QPushButton(managerWid);
         back->setObjectName(QString::fromUtf8("back"));
-        back->setGeometry(QRect(370, 350, 111, 31));
+        back->setGeometry(QRect(430, 350, 111, 31));
         cancel = new QPushButton(managerWid);
         cancel->setObjectName(QString::fromUtf8("cancel"));
         cancel->setGeometry(QRect(480, 90, 75, 23));
         addflight = new QPushButton(managerWid);
         addflight->setObjectName(QString::fromUtf8("addflight"));
         addflight->setGeometry(QRect(320, 90, 75, 23));
+        clean = new QPushButton(managerWid);
+        clean->setObjectName(QString::fromUtf8("clean"));
+        clean->setGeometry(QRect(240, 350, 121, 31));
 
         retranslateUi(managerWid);
         QObject::connect(back, SIGNAL(clicked()), managerWid, SLOT(backtomain()));
@@ -231,6 +235,7 @@ public:
         back->setText(QApplication::translate("managerWid", "\350\277\224\345\233\236", nullptr));
         cancel->setText(QApplication::translate("managerWid", "\345\217\226\346\266\210\350\257\245\350\210\252\347\217\255", nullptr));
         addflight->setText(QApplication::translate("managerWid", "\346\267\273\345\212\240\350\210\252\347\217\255", nullptr));
+        clean->setText(QApplication::translate("managerWid", "\346\270\205\347\251\272", nullptr));
     } // retranslateUi
 
 };

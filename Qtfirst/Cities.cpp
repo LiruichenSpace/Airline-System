@@ -43,14 +43,13 @@ int CityGraph::AddNewCity(string cityname)
 	return count - 1;
 }
 
-FNode * CityGraph::FindOtherFlights(Flight * f)
+FNode * CityGraph::FindFlightsBetween(int c1,int c2)
 {
-	if (f == nullptr)return nullptr;
 	FNode* head = nullptr;
 	FNode*temp = nullptr;
 	FlightEdge* edge = nullptr;
-	int from = f->FromCityID;
-	int end = f->ToCityID;
+	int from = c1;
+	int end =c2;
 	edge = heads[from].Link;
 	while (edge != nullptr) {
 		if (edge->fp->ToCityID == end) {
@@ -60,6 +59,7 @@ FNode * CityGraph::FindOtherFlights(Flight * f)
 				head->pre = temp;
 				temp->next = head;
 				head = temp;
+				temp = nullptr;
 			}
 		}
 			edge = edge->next;

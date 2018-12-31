@@ -23,4 +23,5 @@ private slots:
 	void on_confirm_clicked();//ÅÐ¶Ïdelay
 	void on_cancel_clicked();
 	void on_addflight_clicked();
+	void on_clean_clicked();
 };

@@ -20,9 +20,10 @@ public:
 	Flight* FindFlight(string flightID);
 	Flight* BuildFlight();
 	Flight* LoadFlights();
-	FNode* FindOthers(Flight* f);
+	FNode* FindFlights(int id1,int id2);
 	FNode* FindFlightsByAirline(string airline);
 	Passenger* LoadPassenger();
+	Passenger* FindPassenger(string id);
 
 private:
 	FlightManager flightmanager;

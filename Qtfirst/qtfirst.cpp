@@ -1,6 +1,7 @@
 #include "qtfirst.h"
 #include<string>
 #include"managerwid.h"
+#include"passengerpage.h"
 using namespace std;
 #pragma execution_character_set("utf-8")
 Qtfirst::Qtfirst(QWidget *parent)
@@ -54,8 +55,19 @@ void Qtfirst::on_managerlogin_clicked(){
 		this->hide();    
 		managerWid * managewid = new managerWid(&S);
 		connect(managewid,SIGNAL(sendsignal()),this,SLOT(reshow()));
+		ui.managerpassword->clear();
 		managewid->show();//子界面出现}
 	}
+}
+
+void Qtfirst::on_userlogin_clicked(){
+	string s((const char*)ui.userid->text().toUtf8().data());
+	string flight((const char*)ui.flightID->text().toUtf8().data());
+	PassengerPage* passengerpage = new PassengerPage(s,flight, &S);
+	this->hide();
+	connect(passengerpage, SIGNAL(sendsignal2()), this, SLOT(reshow()));
+	ui.userid->clear();
+	passengerpage->show();//子界面出现
 }
 
 void Qtfirst::reshow()

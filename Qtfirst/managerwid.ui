@@ -466,7 +466,7 @@
   <widget class="QPushButton" name="confirm">
    <property name="geometry">
     <rect>
-     <x>110</x>
+     <x>50</x>
      <y>350</y>
      <width>121</width>
      <height>31</height>
@@ -479,7 +479,7 @@
   <widget class="QPushButton" name="back">
    <property name="geometry">
     <rect>
-     <x>370</x>
+     <x>430</x>
      <y>350</y>
      <width>111</width>
      <height>31</height>
@@ -513,6 +513,19 @@
    </property>
    <property name="text">
     <string>添加航班</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="clean">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>350</y>
+     <width>121</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>清空</string>
    </property>
   </widget>
  </widget>

@@ -142,6 +142,9 @@
     </property>
    </widget>
    <widget class="QLineEdit" name="flightstatus">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>140</x>
@@ -282,6 +285,9 @@
     </property>
    </widget>
    <widget class="QLineEdit" name="airline">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>380</x>
@@ -292,6 +298,9 @@
     </property>
    </widget>
    <widget class="QLineEdit" name="fromcity">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>110</x>
@@ -302,6 +311,9 @@
     </property>
    </widget>
    <widget class="QLineEdit" name="midcity">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>110</x>
@@ -312,6 +324,9 @@
     </property>
    </widget>
    <widget class="QLineEdit" name="tocity">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>110</x>
@@ -322,6 +337,9 @@
     </property>
    </widget>
    <widget class="QLineEdit" name="takeoff">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>290</x>
@@ -332,6 +350,9 @@
     </property>
    </widget>
    <widget class="QLineEdit" name="midland">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>290</x>
@@ -342,6 +363,9 @@
     </property>
    </widget>
    <widget class="QLineEdit" name="toland">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>290</x>
@@ -352,6 +376,9 @@
     </property>
    </widget>
    <widget class="QLineEdit" name="midtakeoff">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>450</x>
@@ -362,6 +389,9 @@
     </property>
    </widget>
    <widget class="QLineEdit" name="costtime">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>120</x>
@@ -411,6 +441,9 @@
     </property>
    </widget>
    <widget class="QLineEdit" name="firstleft">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>370</x>
@@ -421,6 +454,9 @@
     </property>
    </widget>
    <widget class="QLineEdit" name="secondleft">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>500</x>
@@ -431,6 +467,9 @@
     </property>
    </widget>
    <widget class="QLineEdit" name="totalleft">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>240</x>
@@ -454,6 +493,9 @@
     </property>
    </widget>
    <widget class="QLineEdit" name="totalprice">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>120</x>
@@ -490,6 +532,9 @@
     </property>
    </widget>
    <widget class="QLineEdit" name="firstprice">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>300</x>
@@ -500,6 +545,9 @@
     </property>
    </widget>
    <widget class="QLineEdit" name="secondprice">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>480</x>

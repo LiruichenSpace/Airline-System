@@ -153,8 +153,8 @@ Flight * System::LoadFlights()//直接读取全部航班信息
 	return head;
 }
 
-FNode * System::FindOthers(Flight * f){
-	return citygraph.FindOtherFlights(f);
+FNode * System::FindFlights(int id1,int id2){
+	return citygraph.FindFlightsBetween(id1,id2);
 }
 
 FNode * System::FindFlightsByAirline(string airline){
@@ -342,6 +342,10 @@ Passenger * System::LoadPassenger()
 {
 	Passenger* passenger = new Passenger();
 	return passenger;
+}
+Passenger * System::FindPassenger(string id)
+{
+	return pmanager.GetPassenger(std::atoi(id.c_str()));
 }
 fstream& operator<<(fstream& os, Time& T) {
 	os << T.Hour << ':' ;

@@ -31,7 +31,7 @@ class CityGraph//城市图类
 public:
 	CityGraph();
 	~CityGraph();
-	FNode* FindOtherFlights(Flight* f);//查找同样起止地点的其他航班，没有返回空
+	FNode* FindFlightsBetween(int c1,int c2);//查找同样起止地点的其他航班，没有返回空
 	City* heads;//头结点
 	string GetCityName(int index);
 	int GetIDFromName(string cityname);

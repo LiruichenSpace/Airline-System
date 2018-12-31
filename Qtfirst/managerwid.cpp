@@ -97,8 +97,11 @@ void managerWid::on_confirm_clicked(){//调用delay
 		string pri1 = ui->totalprice->text().toLocal8Bit();
 		string pri2 = ui->firstprice->text().toLocal8Bit();
 		string pri3 = ui->secondprice->text().toLocal8Bit();
-		if (!(id.empty() || com.empty() || from.empty() || to.empty() || off1.empty() || land2.empty()
-			|| left1.empty() || pri1.empty())&&S->FindFlight(id)==nullptr) {//这些字符串都有信息且是新航班
+		if (S->FindFlight(id) != nullptr) {
+			QMessageBox::critical(NULL, "Critical", "该航班已存在，添加失败", QMessageBox::Yes, QMessageBox::Yes);
+		}
+		else if (!(id.empty() || com.empty() || from.empty() || to.empty() || off1.empty() || land2.empty()
+			|| left1.empty() || pri1.empty())) {//这些字符串都有信息且是新航班
 			Flight* flight = new Flight();
 			flight->Airline = com;
 			flight->ID = id;
@@ -212,6 +215,25 @@ void managerWid::on_addflight_clicked(){
 		ui->toland->setEnabled(true);
 		ui->toland->clear();
 	}
+}
+void managerWid::on_clean_clicked(){
+	ui->flightstatus->clear();
+	ui->flightID->clear();
+	ui->firstleft->clear();
+	ui->totalleft->clear();
+	ui->secondleft->clear();
+	ui->totalprice->clear();
+	ui->firstprice->clear();
+	ui->takeoff->clear();
+	ui->secondprice->clear();
+	ui->costtime->clear();
+	ui->airline->clear();
+	ui->fromcity->clear();
+	ui->midcity->clear();
+	ui->tocity->clear();
+	ui->midtakeoff->clear();
+	ui->midland->clear();
+	ui->toland->clear();
 }
 void managerWid::on_back_clicked() {
 	emit sendsignal();
