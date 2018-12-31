@@ -62,12 +62,12 @@ public:
 	~FlightManager();
 	Flight* Head;
 	void AddFlight(Flight* flight);
-	void Destroyer(FNode* head);//用来销毁构建出的FNode链表，因为所有FNode链表都是new出来的
+	static void Destroyer(FNode* head);//用来销毁构建出的FNode链表，因为所有FNode链表都是new出来的
 	bool DelFlight(Flight* fp);
 	Flight* FindFlightByID(string flightid);//查找
 	FNode* FindFlightsByAirline(string Airline);
-	FNode* SortByPrice(FNode* head);//排序
-	FNode* SortByTime(FNode* head);
-	FNode* SortByTickets(FNode* head);
+	static FNode* SortByPrice(FNode* head);//排序
+	static FNode* SortByTime(FNode* head);
+	static FNode* SortByTickets(FNode* head);
  };
 

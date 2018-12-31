@@ -1,2 +1,17 @@
-﻿  passengerpage.cpp
+﻿  Moc'ing passengerpage.h...
+  Moc'ing statusinform.h...
+  Uic'ing passengerpage.ui...
+  moc_managerwid.cpp
+  moc_passengerpage.cpp
+  moc_qtfirst.cpp
+  moc_statusinform.cpp
+  Cities.cpp
+  Flight.cpp
+  Passengers.cpp
+  System.cpp
+  main.cpp
+  managerwid.cpp
+  passengerpage.cpp
+  qtfirst.cpp
+  statusinform.cpp
   Qtfirst.vcxproj -> D:\code the world\数据结构\课程设计\Qtfirst\Win32\Debug\Qtfirst.exe

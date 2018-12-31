@@ -48,6 +48,11 @@
      <height>20</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>素晴字体</family>
+    </font>
+   </property>
   </widget>
   <widget class="QLabel" name="label_3">
    <property name="geometry">
@@ -74,6 +79,11 @@
      <height>20</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>素晴字体</family>
+    </font>
+   </property>
   </widget>
   <widget class="QTextEdit" name="textEdit">
    <property name="enabled">
@@ -87,6 +97,12 @@
      <height>171</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>素晴字体</family>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
   </widget>
   <widget class="QLineEdit" name="fromcity">
    <property name="geometry">
@@ -97,6 +113,11 @@
      <height>20</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>素晴字体</family>
+    </font>
+   </property>
   </widget>
   <widget class="QLineEdit" name="tocity">
    <property name="geometry">
@@ -106,6 +127,11 @@
      <width>71</width>
      <height>20</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>素晴字体</family>
+    </font>
    </property>
   </widget>
   <widget class="QPushButton" name="buy">
@@ -323,6 +349,45 @@
    </property>
    <property name="text">
     <string>查询</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="price">
+   <property name="geometry">
+    <rect>
+     <x>400</x>
+     <y>110</y>
+     <width>81</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>价格优先</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="costtime">
+   <property name="geometry">
+    <rect>
+     <x>510</x>
+     <y>110</y>
+     <width>81</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>飞行时间优先</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="left">
+   <property name="geometry">
+    <rect>
+     <x>620</x>
+     <y>110</y>
+     <width>81</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>余票数优先</string>
    </property>
   </widget>
  </widget>

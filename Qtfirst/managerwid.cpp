@@ -1,5 +1,6 @@
 #include "managerwid.h"
 #include"qmessagebox.h"
+#include"statusinform.h"
 using namespace std;
 #pragma execution_character_set("utf-8")
 managerWid::managerWid(System* s,QWidget *parent)
@@ -73,8 +74,12 @@ void managerWid::on_confirm_clicked(){//调用delay
 					flag = true;
 				}
 				if (flag) {
-
-					//S->Delay((const char*)ui->flightID->text().toUtf8().data(), curr - time);
+					string s = (const char*)ui->flightID->text().toUtf8().data();
+					//S->Delay(s, curr - time);
+					statusInform* status = new statusInform(S, S->FindFlight(s), false);
+					connect(status, SIGNAL(sendsigna()), this, SLOT(reshow()));
+					status->show();//子界面出现
+					on_searchflight_clicked();
 				}
 			}
 		}
@@ -177,8 +182,12 @@ void managerWid::on_cancel_clicked(){
 		flag = true;
 	}
 	if (flag) {
-		//string s = (const char*)ui->flightID->text().toUtf8().data();
+		string s = (const char*)ui->flightID->text().toUtf8().data();
+		statusInform* status = new statusInform(S, S->FindFlight(s), true);
+		connect(status, SIGNAL(sendsigna()), this, SLOT(reshow()));
+		status->show();//子界面出现
 		//S->Cancel(s);
+		on_clean_clicked();
 	}
 }
 void managerWid::on_addflight_clicked(){

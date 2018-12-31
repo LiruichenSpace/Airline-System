@@ -22,6 +22,11 @@
      <height>16</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>素晴字体</family>
+    </font>
+   </property>
    <property name="text">
     <string>起飞时间：</string>
    </property>
@@ -35,6 +40,11 @@
      <height>20</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>素晴字体</family>
+    </font>
+   </property>
   </widget>
   <widget class="QLabel" name="label_10">
    <property name="geometry">
@@ -44,6 +54,11 @@
      <width>54</width>
      <height>16</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>素晴字体</family>
+    </font>
    </property>
    <property name="text">
     <string>降落时间：</string>
@@ -58,6 +73,11 @@
      <height>20</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>素晴字体</family>
+    </font>
+   </property>
    <property name="text">
     <string>半程票价1：</string>
    </property>
@@ -70,6 +90,11 @@
      <width>54</width>
      <height>16</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>素晴字体</family>
+    </font>
    </property>
    <property name="text">
     <string>起飞站：</string>
@@ -87,6 +112,11 @@
      <height>20</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>素晴字体</family>
+    </font>
+   </property>
   </widget>
   <widget class="QLabel" name="label_11">
    <property name="geometry">
@@ -96,6 +126,11 @@
      <width>54</width>
      <height>16</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>素晴字体</family>
+    </font>
    </property>
    <property name="text">
     <string>降落时间：</string>
@@ -109,6 +144,11 @@
      <width>51</width>
      <height>20</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>素晴字体</family>
+    </font>
    </property>
    <property name="text">
     <string>全程耗时：</string>
@@ -125,6 +165,11 @@
      <width>81</width>
      <height>20</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>素晴字体</family>
+    </font>
    </property>
   </widget>
   <widget class="QLabel" name="label_5">
@@ -149,6 +194,11 @@
      <height>23</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>素晴字体</family>
+    </font>
+   </property>
    <property name="text">
     <string>查询航班</string>
    </property>
@@ -162,6 +212,11 @@
      <height>20</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>素晴字体</family>
+    </font>
+   </property>
   </widget>
   <widget class="QLabel" name="label_18">
    <property name="geometry">
@@ -171,6 +226,11 @@
      <width>61</width>
      <height>20</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>素晴字体</family>
+    </font>
    </property>
    <property name="text">
     <string>半程余票2：</string>
@@ -188,6 +248,11 @@
      <height>20</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>素晴字体</family>
+    </font>
+   </property>
   </widget>
   <widget class="QLineEdit" name="totalleft">
    <property name="geometry">
@@ -197,6 +262,11 @@
      <width>51</width>
      <height>20</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>素晴字体</family>
+    </font>
    </property>
   </widget>
   <widget class="QLabel" name="label">
@@ -227,6 +297,11 @@
      <height>20</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>素晴字体</family>
+    </font>
+   </property>
   </widget>
   <widget class="QLineEdit" name="secondleft">
    <property name="geometry">
@@ -236,6 +311,11 @@
      <width>51</width>
      <height>20</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>素晴字体</family>
+    </font>
    </property>
   </widget>
   <widget class="QLineEdit" name="firstleft">
@@ -247,6 +327,11 @@
      <height>20</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>素晴字体</family>
+    </font>
+   </property>
   </widget>
   <widget class="QLabel" name="label_16">
    <property name="geometry">
@@ -256,6 +341,11 @@
      <width>51</width>
      <height>20</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>素晴字体</family>
+    </font>
    </property>
    <property name="text">
     <string>全程余票：</string>
@@ -273,6 +363,11 @@
      <height>20</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>素晴字体</family>
+    </font>
+   </property>
   </widget>
   <widget class="QLabel" name="label_7">
    <property name="geometry">
@@ -282,6 +377,11 @@
      <width>54</width>
      <height>16</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>素晴字体</family>
+    </font>
    </property>
    <property name="text">
     <string>经停站：</string>
@@ -296,6 +396,11 @@
      <height>20</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>素晴字体</family>
+    </font>
+   </property>
    <property name="text">
     <string>半程余票1：</string>
    </property>
@@ -308,6 +413,11 @@
      <width>51</width>
      <height>20</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>素晴字体</family>
+    </font>
    </property>
    <property name="text">
     <string>终点站：</string>
@@ -325,6 +435,11 @@
      <height>20</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>素晴字体</family>
+    </font>
+   </property>
   </widget>
   <widget class="QLabel" name="label_19">
    <property name="geometry">
@@ -334,6 +449,11 @@
      <width>61</width>
      <height>20</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>素晴字体</family>
+    </font>
    </property>
    <property name="text">
     <string>全程票价：</string>
@@ -348,6 +468,11 @@
      <height>16</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>素晴字体</family>
+    </font>
+   </property>
    <property name="text">
     <string>请输入航班号：</string>
    </property>
@@ -360,6 +485,11 @@
      <width>51</width>
      <height>20</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>素晴字体</family>
+    </font>
    </property>
   </widget>
   <widget class="QLineEdit" name="fromcity">
@@ -374,6 +504,11 @@
      <height>20</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>素晴字体</family>
+    </font>
+   </property>
   </widget>
   <widget class="QLabel" name="label_21">
    <property name="geometry">
@@ -383,6 +518,11 @@
      <width>61</width>
      <height>20</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>素晴字体</family>
+    </font>
    </property>
    <property name="text">
     <string>半程票价2：</string>
@@ -396,6 +536,11 @@
      <width>54</width>
      <height>16</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>素晴字体</family>
+    </font>
    </property>
    <property name="text">
     <string>起飞时间：</string>
@@ -413,6 +558,11 @@
      <height>20</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>素晴字体</family>
+    </font>
+   </property>
   </widget>
   <widget class="QLineEdit" name="costtime">
    <property name="enabled">
@@ -426,6 +576,11 @@
      <height>20</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>素晴字体</family>
+    </font>
+   </property>
   </widget>
   <widget class="QLineEdit" name="flightID">
    <property name="geometry">
@@ -435,6 +590,11 @@
      <width>141</width>
      <height>21</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>素晴字体</family>
+    </font>
    </property>
   </widget>
   <widget class="QLineEdit" name="toland">
@@ -448,6 +608,11 @@
      <width>71</width>
      <height>20</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>素晴字体</family>
+    </font>
    </property>
   </widget>
   <widget class="QLabel" name="label_15">
@@ -472,6 +637,11 @@
      <height>31</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>素晴字体</family>
+    </font>
+   </property>
    <property name="text">
     <string>确定</string>
    </property>
@@ -484,6 +654,11 @@
      <width>111</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>素晴字体</family>
+    </font>
    </property>
    <property name="text">
     <string>返回</string>
@@ -498,6 +673,11 @@
      <height>23</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>素晴字体</family>
+    </font>
+   </property>
    <property name="text">
     <string>取消该航班</string>
    </property>
@@ -511,6 +691,11 @@
      <height>23</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>素晴字体</family>
+    </font>
+   </property>
    <property name="text">
     <string>添加航班</string>
    </property>
@@ -523,6 +708,11 @@
      <width>121</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>素晴字体</family>
+    </font>
    </property>
    <property name="text">
     <string>清空</string>

@@ -60,6 +60,9 @@
     <ClCompile Include="passengerpage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="statusinform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="qtfirst.h">
@@ -71,6 +74,9 @@
     <QtMoc Include="passengerpage.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="statusinform.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="qtfirst.ui">
@@ -80,6 +86,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="passengerpage.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="statusinform.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

@@ -28,4 +28,8 @@ private slots:
 	void on_buy_clicked();
 	void on_searchflight_clicked();
 	void on_search_clicked();
+	void on_refund_clicked();
+	void on_price_clicked();
+	void on_costtime_clicked();
+	void on_left_clicked();
 };

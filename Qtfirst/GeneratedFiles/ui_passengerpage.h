@@ -47,6 +47,9 @@ public:
     QCheckBox *half1;
     QCheckBox *half2;
     QPushButton *searchflight;
+    QPushButton *price;
+    QPushButton *costtime;
+    QPushButton *left;
 
     void setupUi(QWidget *PassengerPage)
     {
@@ -62,6 +65,9 @@ public:
         flightid = new QLineEdit(PassengerPage);
         flightid->setObjectName(QString::fromUtf8("flightid"));
         flightid->setGeometry(QRect(90, 80, 113, 20));
+        QFont font;
+        font.setFamily(QString::fromUtf8("\347\264\240\346\231\264\345\255\227\344\275\223"));
+        flightid->setFont(font);
         label_3 = new QLabel(PassengerPage);
         label_3->setObjectName(QString::fromUtf8("label_3"));
         label_3->setGeometry(QRect(40, 360, 71, 16));
@@ -69,16 +75,23 @@ public:
         bestflight->setObjectName(QString::fromUtf8("bestflight"));
         bestflight->setEnabled(false);
         bestflight->setGeometry(QRect(100, 360, 113, 20));
+        bestflight->setFont(font);
         textEdit = new QTextEdit(PassengerPage);
         textEdit->setObjectName(QString::fromUtf8("textEdit"));
         textEdit->setEnabled(true);
         textEdit->setGeometry(QRect(60, 160, 641, 171));
+        QFont font1;
+        font1.setFamily(QString::fromUtf8("\347\264\240\346\231\264\345\255\227\344\275\223"));
+        font1.setPointSize(11);
+        textEdit->setFont(font1);
         fromcity = new QLineEdit(PassengerPage);
         fromcity->setObjectName(QString::fromUtf8("fromcity"));
         fromcity->setGeometry(QRect(440, 80, 71, 20));
+        fromcity->setFont(font);
         tocity = new QLineEdit(PassengerPage);
         tocity->setObjectName(QString::fromUtf8("tocity"));
         tocity->setGeometry(QRect(570, 80, 71, 20));
+        tocity->setFont(font);
         buy = new QPushButton(PassengerPage);
         buy->setObjectName(QString::fromUtf8("buy"));
         buy->setGeometry(QRect(210, 80, 41, 23));
@@ -130,6 +143,15 @@ public:
         searchflight = new QPushButton(PassengerPage);
         searchflight->setObjectName(QString::fromUtf8("searchflight"));
         searchflight->setGeometry(QRect(310, 80, 41, 23));
+        price = new QPushButton(PassengerPage);
+        price->setObjectName(QString::fromUtf8("price"));
+        price->setGeometry(QRect(234, 360, 81, 23));
+        costtime = new QPushButton(PassengerPage);
+        costtime->setObjectName(QString::fromUtf8("costtime"));
+        costtime->setGeometry(QRect(334, 360, 81, 23));
+        left = new QPushButton(PassengerPage);
+        left->setObjectName(QString::fromUtf8("left"));
+        left->setGeometry(QRect(430, 360, 81, 23));
 
         retranslateUi(PassengerPage);
 
@@ -158,6 +180,9 @@ public:
         half1->setText(QApplication::translate("PassengerPage", "\345\215\212\347\250\2131", nullptr));
         half2->setText(QApplication::translate("PassengerPage", "\345\215\212\347\250\2132", nullptr));
         searchflight->setText(QApplication::translate("PassengerPage", "\346\237\245\350\257\242", nullptr));
+        price->setText(QApplication::translate("PassengerPage", "\344\273\267\346\240\274\344\274\230\345\205\210", nullptr));
+        costtime->setText(QApplication::translate("PassengerPage", "\351\243\236\350\241\214\346\227\266\351\227\264\344\274\230\345\205\210", nullptr));
+        left->setText(QApplication::translate("PassengerPage", "\344\275\231\347\245\250\346\225\260\344\274\230\345\205\210", nullptr));
     } // retranslateUi
 
 };

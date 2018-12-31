@@ -14,10 +14,12 @@ public:
 	void ShowFlights(FNode* node);
 	void ShowFlight(Flight* flight);
 	void AddNewFlight(Flight* flight);
+	void GetRefund(Passenger* p);
 	bool DelFlight(Flight* flight);
 	int GetCityID(string city);
 	string FindCityFromID(int index);
 	Flight* FindFlight(string flightID);
+	Flight* FindLatest(Time time,string ID, int c1, int c2);//实现可优化
 	Flight* BuildFlight();
 	Flight* LoadFlights();
 	FNode* FindFlights(int id1,int id2);

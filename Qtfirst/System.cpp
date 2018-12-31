@@ -195,6 +195,29 @@ Flight * System::FindFlight(string flightID)
 	return flightmanager.FindFlightByID(flightID);
 }
 
+Flight * System::FindLatest(Time time,string ID, int c1, int c2)
+{
+	FNode* head = FindFlights(c1, c2);
+	FNode* temp=head;
+	if (head != nullptr) {
+		head = flightmanager.SortByPrice(head);
+		Flight* result = nullptr;
+		Time t = head->fp->TakeOff;
+		t.Min += 1;
+		while (temp != nullptr) {
+			if (/*temp->fp->TakeOff > time&&temp->fp->TakeOff < t&&*/!temp->fp->delayornot&&temp->fp->ID!=ID) {
+				/*result = FindFlight(temp->fp->ID);//ÕÒµ½Ö÷º½Ïß
+				t = temp->fp->TakeOff;*/
+				result = temp->fp; break;
+			}
+			temp = temp->next;
+		}
+		flightmanager.Destroyer(head);
+		return result;
+	}
+	else return nullptr;
+}
+
 Flight * System::BuildFlight(){
 	Flight* flight = new Flight();
 	Flight* first=nullptr;
@@ -261,6 +284,10 @@ void System::ShowDivider(){
 void System::AddNewFlight(Flight * flight){
 	flightmanager.AddFlight(flight);
 	citygraph.AddFlight(flight);
+}
+
+void System::GetRefund(Passenger * p){
+	pmanager.GetRefund(p);
 }
 
 bool System::DelFlight(Flight * flight){

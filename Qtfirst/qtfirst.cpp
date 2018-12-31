@@ -62,12 +62,14 @@ void Qtfirst::on_managerlogin_clicked(){
 
 void Qtfirst::on_userlogin_clicked(){
 	string s((const char*)ui.userid->text().toUtf8().data());
-	string flight((const char*)ui.flightID->text().toUtf8().data());
-	PassengerPage* passengerpage = new PassengerPage(s,flight, &S);
-	this->hide();
-	connect(passengerpage, SIGNAL(sendsignal2()), this, SLOT(reshow()));
-	ui.userid->clear();
-	passengerpage->show();//子界面出现
+	if (!s.empty()) {
+		string flight((const char*)ui.flightID->text().toUtf8().data());
+		PassengerPage* passengerpage = new PassengerPage(s, flight, &S);
+		this->hide();
+		connect(passengerpage, SIGNAL(sendsignal2()), this, SLOT(reshow()));
+		ui.userid->clear();
+		passengerpage->show();//子界面出现
+	}
 }
 
 void Qtfirst::reshow()
