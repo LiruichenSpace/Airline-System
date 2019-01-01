@@ -73,14 +73,14 @@ bool PassengerPage::println(Flight * fp){
 	string s;
 	s += "    "+strpolish(fp->ID, 7)+u8"     ";
 	if (fp->delayornot) {
-		s += "delay		 " ;
+		s += "delay          " ;
 	}
 	else {
-		s += "ontime	 ";
+		s += "ontime         ";
 	} 
 	s += strpolish(fp->TakeOff.tostring(),6)+"          "
 		+strpolish(fp->CostTime.tostring(),6)+u8"       "
-		+strpolish(to_string(fp->Price),6)+u8"     "
+		+strpolish(to_string(fp->Price),6)+u8"      "
 		+ strpolish(to_string(fp->LeftTickets),6);
 	ui->textEdit->append(QString::fromLocal8Bit(s.c_str()));
 	return true;
@@ -204,19 +204,26 @@ void PassengerPage::on_search_clicked(){
 		FlightManager a; a.Destroyer(head);
 	}
 }
-void PassengerPage::on_refund_clicked(){
+void PassengerPage::on_refund_clicked() {
 	string s((const char*)ui->flightid->text().toLocal8Bit().data());
 	Passenger* pp = S->FindPassenger(passID);
-	S->GetRefund(pp);
-	////////////////////////////调整为购票界面
-	ui->buy->setEnabled(true);
-	ui->refund->setEnabled(false);
-	ui->searchflight->setEnabled(true);
-	ui->total->setEnabled(true);
-	ui->half1->setEnabled(true);
-	ui->half2->setEnabled(true);
-	ui->flightid->clear();
-	ui->flightid->setEnabled(true);
+	QMessageBox message(QMessageBox::Warning, u8"Warning", u8"您确定要退票吗？", QMessageBox::Yes | QMessageBox::No, NULL);
+	bool flag = false;
+	if (message.exec() == QMessageBox::Yes) {
+		flag = true;
+	}
+	if (flag) {
+		S->GetRefund(pp);
+		////////////////////////////调整为购票界面
+		ui->buy->setEnabled(true);
+		ui->refund->setEnabled(false);
+		ui->searchflight->setEnabled(true);
+		ui->total->setEnabled(true);
+		ui->half1->setEnabled(true);
+		ui->half2->setEnabled(true);
+		ui->flightid->clear();
+		ui->flightid->setEnabled(true);
+	}
 }
 void PassengerPage::on_price_clicked(){
 	clean();

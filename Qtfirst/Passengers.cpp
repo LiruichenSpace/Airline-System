@@ -43,7 +43,7 @@ void PassengersManager::GetRefund(Passenger * passenger)
 	PNode* m = nullptr;
 	PNode* q = nullptr;
 	PNode* t = nullptr;
-	if (passenger->HaveTicket) {
+	if (passenger->HaveTicket) {//若有票
 		p = passenger->flight->OnBoard;
 		m = passenger->flight->Waiting;
 		passenger->HaveTicket = false;
@@ -66,7 +66,7 @@ void PassengersManager::GetRefund(Passenger * passenger)
 		else {
 			t = m;
 			m = m->next;
-			delete t;
+			t->pp->HaveTicket = true;
 			passenger->flight->Waiting = m;
 			if(passenger->flight->Waiting!=nullptr)
 			passenger->flight->Waiting->pre = nullptr;
@@ -76,7 +76,7 @@ void PassengersManager::GetRefund(Passenger * passenger)
 			passenger->flight->OnBoard = t;
 		}
 	}
-	else {//若无票
+	else {//若无票，也处理，从等待列表移除
 		p = passenger->flight->Waiting;
 		while (p != nullptr&&p->pp != passenger) {
 
@@ -94,6 +94,7 @@ void PassengersManager::GetRefund(Passenger * passenger)
 				delete p;
 			}
 	}
+	/////////////////////////最后将其从总链表中删除
 	Passenger* temp = head;//单链表
 	Passenger* p0 = nullptr;
 	while (temp != nullptr&&temp != passenger) {

@@ -23,17 +23,6 @@ void System::Delay(string FlightID, Time delay){
 		Flight* f = flightmanager.FindFlightByID(FlightID);
 		if (f != nullptr) {
 			f->delayornot = true;
-			/*PNode* p = f->GetPassengers();
-
-			cout << "航班 " << FlightID << " 将延迟" << delay.Hour << "时" << delay.Min << "分" << "," << "以下是航班延迟乘客的ID:" << endl;
-
-			while (p->next != NULL) {
-
-				cout << p->pp->ID << " ";
-
-				p = p->next;
-
-			}*/
 			Time time = delay;
 			f->TakeOff = f->TakeOff + time;
 			f->Land = f->Land + time;
@@ -49,33 +38,7 @@ void System::Delay(string FlightID, Time delay){
 void System::Cancel(string FlightID){
 	Flight* f = flightmanager.FindFlightByID(FlightID);
 	if (f != nullptr) {
-		/*PNode* p = f->GetPassengers();
-
-		cout << "ID为" << FlightID << "的航班将取消" << "," << "以下是航班取消乘客的ID:" << endl;
-		int count = 0;
-		while (p->next != NULL) {
-
-			cout << p->pp->ID << " ";
-			count++;
-			if (count == 10) { count = 0; cout << endl; }
-			p = p->next;
-
-		}
-		cout << endl;
-		FNode* head = flightmanager.SortByPrice(FindOthers(f));
-		FNode* temp = head;*/
 		DelFlight(f); f = nullptr;//删除航班
-		/*while (temp != nullptr) {
-			if (!temp->fp->delayornot) { f = temp->fp; break; }
-			temp = temp->next;
-		}
-		if (f == nullptr) {
-			cout << "航班均已延误" << endl;
-		}
-		else {
-			cout << "推荐未延误航班为 " << f->ID << " 号航班" << endl;
-		}
-		flightmanager.Destroyer(head);*///释放空间
 	}
 }
 
@@ -144,7 +107,6 @@ Flight * System::LoadFlights()//直接读取全部航班信息
 			flight->next = head;
 		}
 		citygraph.AddFlight(flight);
-		//cout << flight->ID << endl;
 		head = flight;
 		flight = nullptr;
 		first = nullptr;
@@ -163,35 +125,6 @@ FNode * System::FindFlightsByAirline(string airline){
 	return flightmanager.FindFlightsByAirline(airline);
 }
 
-/*void System::ShowFlights(FNode * node){
-	ShowHint();
-	node = flightmanager.SortByTickets(node);
-	FNode* temp = node;
-	Flight* flight = nullptr;
-	while (temp != nullptr) {
-		flight = temp->fp;
-		cout << flight->ID << "   " << citygraph.GetCityName(flight->FromCityID) << "       " << flight->TakeOff << "    ";
-		cout << citygraph.GetCityName(flight->ToCityID) << "     " << flight->Land << "     " << flight->Price << "      ";
-		cout << flight->LeftTickets << "          ";
-		if (flight->FirstHalf != nullptr)cout << "是" << endl;
-		else cout << "否" << endl;
-		temp = temp->next;
-	}
-	if (node == nullptr)cout << "未找到目标航班" << endl;
-}*/
-
-/*void System::ShowFlight(Flight * flight){
-	if (flight != nullptr) {
-		ShowHint();
-		cout << flight->ID << "   " << citygraph.GetCityName(flight->FromCityID) << "       " << flight->TakeOff << "    ";
-		cout << citygraph.GetCityName(flight->ToCityID) << "     " << flight->Land << "     " << flight->Price << "      ";
-		cout << flight->LeftTickets << "          ";
-		if (flight->FirstHalf != nullptr)cout << "是"<<endl;
-		else cout << "否" << endl;
-	}
-	else cout << "无此航班";
-}*/
-
 Flight * System::FindFlight(string flightID)
 {
 	return flightmanager.FindFlightByID(flightID);
@@ -207,9 +140,7 @@ Flight * System::FindLatest(Time time,string ID, int c1, int c2)
 		Time t = head->fp->TakeOff;
 		t.Min += 1;
 		while (temp != nullptr) {
-			if (/*temp->fp->TakeOff > time&&temp->fp->TakeOff < t&&*/!temp->fp->delayornot&&temp->fp->ID!=ID) {
-				/*result = FindFlight(temp->fp->ID);//找到主航线
-				t = temp->fp->TakeOff;*/
+			if (!temp->fp->delayornot&&temp->fp->ID!=ID) {
 				result = temp->fp; break;
 			}
 			temp = temp->next;
@@ -274,14 +205,6 @@ Flight * System::BuildFlight(){
 	}
 	return flight;
 }
-
-/*void System::ShowHint(){
-	cout << "航班号  起飞地点  起飞时间  降落地点  降落时间  票价  余票数量  是否有经停站" << endl;
-}
-
-void System::ShowDivider(){
-	cout << "************************************************************************" << endl;
-}*/
 
 void System::AddNewFlight(Flight * flight){
 	flightmanager.AddFlight(flight);
