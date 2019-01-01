@@ -29,19 +29,32 @@ PassengerPage::PassengerPage(int passid, string flight, System* s, QWidget *pare
 		else if (fp->SecondHalf == pp->flight) {
 			flag = 2; ui->half2 ->setChecked(true);
 		}
+		if (S->NeedInfo(pp->ID))
+		{
+			QMessageBox::information(NULL, u8"Notice", u8"您的航班已延误!", QMessageBox::Yes, QMessageBox::Yes);
+			S->Delchain(pp->ID);
+		}
 		if (pp->HaveTicket) {
 			QMessageBox::information(NULL, u8"Notice", u8"您已购票", QMessageBox::Yes , QMessageBox::Yes);
-
 		}
 		else {
 			QMessageBox::information(NULL, u8"Notice", u8"正在预约抢票中，请耐心等待", QMessageBox::Yes , QMessageBox::Yes);
 		}
 	}
 	else {
-		QMessageBox message(QMessageBox::Information, u8"Notice", u8"新乘客，即将进入购票界面", QMessageBox::Yes , NULL);
 		bool flag = false;
-		if (message.exec() == QMessageBox::Yes) {
-			flag = true;
+		if (S->NeedInfo(passID)) {
+			QMessageBox message(QMessageBox::Information, u8"Notice", u8"您的航班已取消，请重新购票", QMessageBox::Yes, NULL);
+			S->Delchain(passID);
+			if (message.exec() == QMessageBox::Yes) {
+				flag = true;
+			}
+		}
+		else {
+			QMessageBox message(QMessageBox::Information, u8"Notice", u8"新乘客，即将进入购票界面", QMessageBox::Yes, NULL);
+			if (message.exec() == QMessageBox::Yes) {
+				flag = true;
+			}
 		}
 		if (flag) {
 			ui->buy->setEnabled(true);

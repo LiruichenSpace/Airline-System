@@ -4,15 +4,23 @@ using namespace std;
 #include"Flight.h"
 #include"Passengers.h"
 #include"Cities.h"
+class chain {
+public:
+	chain();
+	~chain();
+	int id;
+	chain* next;
+};
 class System//主系统类
 {
 public:
 	System();
 	~System();
+	void inchain(int num);
+	void Delchain(int num);
+	bool NeedInfo(int num);
 	void Delay(string FlightID,Time delay);//通过manager处理
 	void Cancel(string FlightID);//处理类似delay
-	void ShowFlights(FNode* node);
-	void ShowFlight(Flight* flight);
 	void AddNewFlight(Flight* flight);
 	void GetRefund(Passenger* p);
 	bool DelFlight(Flight* flight);
@@ -29,6 +37,7 @@ public:
 	Passenger* FindPassenger(int id);
 
 private:
+	chain* cancle;
 	FlightManager flightmanager;
 	CityGraph citygraph;
 	PassengersManager pmanager;

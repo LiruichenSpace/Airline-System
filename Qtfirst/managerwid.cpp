@@ -77,7 +77,8 @@ void managerWid::on_confirm_clicked(){//调用delay
 					string s = (const char*)ui->flightID->text().toUtf8().data();
 					S->Delay(s, curr - time);
 					statusInform* status = new statusInform(S, S->FindFlight(s), false);
-					connect(status, SIGNAL(sendsigna()), this, SLOT(reshow()));
+					connect(status, SIGNAL(signal()), this, SLOT(reshow()));
+					this->hide();
 					status->show();//子界面出现
 					on_searchflight_clicked();
 				}
@@ -184,7 +185,8 @@ void managerWid::on_cancel_clicked(){
 	if (flag) {
 		string s = (const char*)ui->flightID->text().toUtf8().data();
 		statusInform* status = new statusInform(S, S->FindFlight(s), true);
-		connect(status, SIGNAL(sendsigna()), this, SLOT(reshow()));
+		connect(status, SIGNAL(signal()), this, SLOT(reshow()));
+		this->hide();
 		status->show();//子界面出现
 		S->Cancel(s);
 		on_clean_clicked();
@@ -243,6 +245,10 @@ void managerWid::on_clean_clicked(){
 	ui->midtakeoff->clear();
 	ui->midland->clear();
 	ui->toland->clear();
+}
+void managerWid::reshow()
+{
+	this->show();
 }
 void managerWid::on_back_clicked() {
 	emit sendsignal();

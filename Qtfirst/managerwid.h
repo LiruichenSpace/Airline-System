@@ -24,4 +24,5 @@ private slots:
 	void on_cancel_clicked();
 	void on_addflight_clicked();
 	void on_clean_clicked();
+	void reshow();
 };

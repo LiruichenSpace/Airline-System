@@ -46,6 +46,7 @@ statusInform::~statusInform(){
 	delete ui;
 }
 void statusInform::println(Passenger * pp,bool flag){
+	S->inchain(pp->ID);
 	if (flag) {
 		ui->passengers->append(QString::fromLocal8Bit(to_string(pp->ID).c_str()));
 	}

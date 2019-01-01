@@ -6,7 +6,7 @@
 
 using namespace std;
 
-System::System()
+System::System():cancle(nullptr)
 {
 	LoadFlights();
 	LoadPassengers();
@@ -16,8 +16,44 @@ System::System()
 System::~System(){
 	SavePassengers();
 	SaveFlights();
+	chain* temp = cancle;
+	chain* p = nullptr;
+	while (temp != nullptr) {
+		p = temp; temp = temp->next;
+		delete p;
+	}
 }
 
+void System::inchain(int num) {
+	chain* p = new chain();
+	p->id = num;
+	p->next = cancle;
+	cancle = p;
+}
+void System::Delchain(int num) {
+	chain* p = cancle;
+	chain* p0 = nullptr;
+	while (p != nullptr&&p->id != num) {
+		p0 = p; p = p->next;
+	}
+	if (p != nullptr) {
+		if (p0 == nullptr) {
+			p0 = p; cancle = p->next; delete p0;
+		}
+		else {
+			p0->next = p->next;
+			delete p;
+		}
+	}
+}
+bool System::NeedInfo(int num) {
+	chain* p = cancle;
+	while (p != nullptr) {
+		if (p->id == num)return true;
+		p = p->next;
+	}
+	return false;
+}
 void System::Delay(string FlightID, Time delay){
 
 		Flight* f = flightmanager.FindFlightByID(FlightID);
@@ -341,6 +377,11 @@ void System::LoadPassengers(){
 			if (num == -1) { delete pass; break; }
 			pass->ID = num;
 			fin >> s;
+			if (s == "#") {
+				inchain(pass->ID);
+				delete pass;
+				continue;
+			}
 			pass->FromCity = citygraph.GetIDFromName(s);
 			fin >> s;
 			pass->ToCity = citygraph.GetIDFromName(s);
@@ -364,13 +405,18 @@ bool System::SavePassengers(){
 	if (fout) {
 		Passenger* temp = pmanager.head;
 		while (temp != nullptr) {
-			fout << to_string(temp->ID) << "		";
+			fout << to_string(temp->ID) << "	";
 			fout << citygraph.GetCityName(temp->FromCity) << "	";
 			fout << citygraph.GetCityName(temp->ToCity) << "	";
 			if (temp->HaveTicket)fout << "Y	";
 			else fout << "N	";
-			fout << temp->flight->ID<<"	"<<endl;
+			fout << temp->flight->ID << "	" << endl;
 			temp = temp->next;
+		}
+		chain* c = cancle;
+		while (c != nullptr) {
+			fout << to_string(c->id) << "   #" << endl;
+			c = c->next;
 		}
 		fout << -1;
 		fout.close();
@@ -399,4 +445,12 @@ ostream& operator<<(ostream&os, Time& T) {
 	if (T.Min < 10)os << 0 << T.Min;
 	else os << T.Min;
 	return os;
+}
+
+chain::chain():next(nullptr),id(-1)
+{
+}
+
+chain::~chain()
+{
 }
