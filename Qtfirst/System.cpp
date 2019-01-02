@@ -23,7 +23,6 @@ System::~System(){
 		delete p;
 	}
 }
-
 void System::inchain(int num) {
 	chain* p = new chain();
 	p->id = num;

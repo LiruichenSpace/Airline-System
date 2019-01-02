@@ -130,10 +130,13 @@ bool FlightManager::DelFlight(Flight* fp)//乘客操作由flight类析构函数实现
 
 Flight* FlightManager::FindFlightByID(string flightid)
 {
-	Flight* p = Head;
-	while (p != nullptr&& p->ID != flightid)
-		p = p->next;
-	return p;
+	if (!flightid.empty()) {
+		Flight* p = Head;
+		while (p != nullptr&& p->ID != flightid)
+			p = p->next;
+		return p;
+	}
+	else return nullptr;
 }
 
 FNode* FlightManager::FindFlightsByAirline(string Airline) {

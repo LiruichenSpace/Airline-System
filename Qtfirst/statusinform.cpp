@@ -46,7 +46,8 @@ statusInform::~statusInform(){
 	delete ui;
 }
 void statusInform::println(Passenger * pp,bool flag){
-	S->inchain(pp->ID);
+	if(!S->NeedInfo(pp->ID))//只有不存在时才加入，防止重复加入
+		S->inchain(pp->ID);
 	if (flag) {
 		ui->passengers->append(QString::fromLocal8Bit(to_string(pp->ID).c_str()));
 	}

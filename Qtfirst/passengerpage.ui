@@ -219,9 +219,9 @@
    <property name="geometry">
     <rect>
      <x>100</x>
-     <y>132</y>
+     <y>130</y>
      <width>54</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
    <property name="text">
@@ -231,7 +231,7 @@
   <widget class="QLabel" name="label_7">
    <property name="geometry">
     <rect>
-     <x>200</x>
+     <x>280</x>
      <y>130</y>
      <width>54</width>
      <height>20</height>
@@ -244,7 +244,7 @@
   <widget class="QLabel" name="label_8">
    <property name="geometry">
     <rect>
-     <x>310</x>
+     <x>360</x>
      <y>130</y>
      <width>54</width>
      <height>20</height>
@@ -257,7 +257,7 @@
   <widget class="QLabel" name="label_9">
    <property name="geometry">
     <rect>
-     <x>450</x>
+     <x>470</x>
      <y>130</y>
      <width>54</width>
      <height>20</height>
@@ -388,6 +388,19 @@
    </property>
    <property name="text">
     <string>余票数优先</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_12">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>130</y>
+     <width>54</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>航空公司</string>
    </property>
   </widget>
  </widget>

@@ -177,19 +177,21 @@ void managerWid::on_confirm_clicked(){//调用delay
 	}
 }
 void managerWid::on_cancel_clicked(){
-	QMessageBox message(QMessageBox::Warning, "Warning", u8"即将取消航班，是否确定？", QMessageBox::Yes | QMessageBox::No, NULL);
-	bool flag = false;
-	if (message.exec() == QMessageBox::Yes){
-		flag = true;
-	}
-	if (flag) {
-		string s = (const char*)ui->flightID->text().toUtf8().data();
-		statusInform* status = new statusInform(S, S->FindFlight(s), true);
-		connect(status, SIGNAL(signal()), this, SLOT(reshow()));
-		this->hide();
-		status->show();//子界面出现
-		S->Cancel(s);
-		on_clean_clicked();
+	string s = (const char*)ui->flightID->text().toUtf8().data();
+	if (S->FindFlight(s) != nullptr) {
+		QMessageBox message(QMessageBox::Warning, "Warning", u8"即将取消航班，是否确定？", QMessageBox::Yes | QMessageBox::No, NULL);
+		bool flag = false;
+		if (message.exec() == QMessageBox::Yes) {
+			flag = true;
+		}
+		if (flag) {
+			statusInform* status = new statusInform(S, S->FindFlight(s), true);
+			connect(status, SIGNAL(signal()), this, SLOT(reshow()));
+			this->hide();
+			status->show();//子界面出现
+			S->Cancel(s);
+			on_clean_clicked();
+		}
 	}
 }
 void managerWid::on_addflight_clicked(){

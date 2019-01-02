@@ -50,6 +50,7 @@ public:
     QPushButton *price;
     QPushButton *costtime;
     QPushButton *left;
+    QLabel *label_12;
 
     void setupUi(QWidget *PassengerPage)
     {
@@ -113,16 +114,16 @@ public:
         refund->setGeometry(QRect(260, 80, 41, 23));
         label_6 = new QLabel(PassengerPage);
         label_6->setObjectName(QString::fromUtf8("label_6"));
-        label_6->setGeometry(QRect(100, 132, 54, 20));
+        label_6->setGeometry(QRect(100, 130, 54, 21));
         label_7 = new QLabel(PassengerPage);
         label_7->setObjectName(QString::fromUtf8("label_7"));
-        label_7->setGeometry(QRect(200, 130, 54, 20));
+        label_7->setGeometry(QRect(280, 130, 54, 20));
         label_8 = new QLabel(PassengerPage);
         label_8->setObjectName(QString::fromUtf8("label_8"));
-        label_8->setGeometry(QRect(310, 130, 54, 20));
+        label_8->setGeometry(QRect(360, 130, 54, 20));
         label_9 = new QLabel(PassengerPage);
         label_9->setObjectName(QString::fromUtf8("label_9"));
-        label_9->setGeometry(QRect(450, 130, 54, 20));
+        label_9->setGeometry(QRect(470, 130, 54, 20));
         label_10 = new QLabel(PassengerPage);
         label_10->setObjectName(QString::fromUtf8("label_10"));
         label_10->setGeometry(QRect(550, 130, 54, 21));
@@ -152,6 +153,9 @@ public:
         left = new QPushButton(PassengerPage);
         left->setObjectName(QString::fromUtf8("left"));
         left->setGeometry(QRect(620, 110, 81, 23));
+        label_12 = new QLabel(PassengerPage);
+        label_12->setObjectName(QString::fromUtf8("label_12"));
+        label_12->setGeometry(QRect(190, 130, 54, 20));
 
         retranslateUi(PassengerPage);
 
@@ -183,6 +187,7 @@ public:
         price->setText(QApplication::translate("PassengerPage", "\344\273\267\346\240\274\344\274\230\345\205\210", nullptr));
         costtime->setText(QApplication::translate("PassengerPage", "\351\243\236\350\241\214\346\227\266\351\227\264\344\274\230\345\205\210", nullptr));
         left->setText(QApplication::translate("PassengerPage", "\344\275\231\347\245\250\346\225\260\344\274\230\345\205\210", nullptr));
+        label_12->setText(QApplication::translate("PassengerPage", "\350\210\252\347\251\272\345\205\254\345\217\270", nullptr));
     } // retranslateUi
 
 };

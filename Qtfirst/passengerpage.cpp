@@ -84,16 +84,18 @@ string PassengerPage::strpolish(string s, int len)
 bool PassengerPage::println(Flight * fp){
 	if (fp == nullptr)return false;
 	string s;
-	s += "    "+strpolish(fp->ID, 7)+u8"     ";
+	s += "    " + strpolish(fp->ID, 7) + u8"    "
+		+strpolish(fp->Airline,5)+u8"   ";
+	
 	if (fp->delayornot) {
-		s += "delay          " ;
+		s += u8"delay       " ;
 	}
 	else {
-		s += "ontime         ";
+		s += u8"ontime      ";
 	} 
-	s += strpolish(fp->TakeOff.tostring(),6)+"          "
-		+strpolish(fp->CostTime.tostring(),6)+u8"       "
-		+strpolish(to_string(fp->Price),6)+u8"      "
+	s += strpolish(fp->TakeOff.tostring(),6)+u8"      "
+		+strpolish(fp->CostTime.tostring(),6)+u8"     "
+		+strpolish(to_string(fp->Price),6)+u8"     "
 		+ strpolish(to_string(fp->LeftTickets),6);
 	ui->textEdit->append(QString::fromLocal8Bit(s.c_str()));
 	return true;
