@@ -9,7 +9,6 @@ PassengerPage::PassengerPage(int passid, string flight, System* s, QWidget *pare
 	ui->setupUi(this);
 	this->setAttribute(Qt::WA_DeleteOnClose, 1);
 	Passenger* pp = S->FindPassenger(passid);
-	qDebug() << passID<<endl;
 	if (pp != nullptr) {//////////////ÒÑ¹ºÂò×´Ì¬
 		ui->buy->setEnabled(false);
 		ui->refund->setEnabled(true);

@@ -10,6 +10,8 @@ System::System():cancle(nullptr)
 {
 	LoadFlights();
 	LoadPassengers();
+	//if(FindFlights(GetCityID("长春"), 16)==nullptr)
+		GetWay(GetCityID("长春"), GetCityID("新加坡"));
 }
 
 
@@ -152,6 +154,55 @@ Flight * System::LoadFlights()//直接读取全部航班信息
 	return head;
 }
 
+SortPack * System::GetWay(int c1, int c2)
+{
+	stack<int> S;
+	stack<int> save;
+	SortPack* result=nullptr;
+	SortPack* addNode = nullptr;
+	GNode* p = nullptr;
+	bool flag;
+	int temp;
+	//////////////////////////图操作
+	SubGraph SG(&citygraph);
+	int* reached = new int[SG.count];
+	for (int i = 0; i < SG.count; i++)reached[i] = 0;//访问数组
+	S.push(c1);
+	qDebug() << "try";
+	while (!S.empty()) {
+		flag = false;
+		temp = S.top(); save.push(temp); reached[temp] = 1;
+		S.pop(); 
+		if (temp == c2) {//若找到路径
+			addNode = new SortPack();
+			addNode->CityS = save;
+			if (result == nullptr)result = addNode;
+			else addNode->next = result; result = addNode;
+			while (!addNode->CityS.empty()) {
+				qDebug() << QString::fromLocal8Bit(FindCityFromID(addNode->CityS.top()).c_str());
+				addNode->CityS.pop();
+			}
+			qDebug() << "over";
+			save.pop(); reached[temp] = 0;
+			continue;
+		}
+		p = SG.heads[temp].adjacent;
+		while (p != nullptr) {
+			if (reached[p->num] == 0) {
+				flag = true;
+				S.push(p->num);
+			}
+			p = p->adjacent;
+		}
+		if (!flag) {//若是死路
+			save.pop(); reached[temp] = 0;
+		}
+	}
+	delete reached;
+	//////////////////////////排序
+	return result;
+}
+
 FNode * System::FindFlights(int id1,int id2){
 	return citygraph.FindFlightsBetween(id1,id2);
 }
@@ -184,61 +235,6 @@ Flight * System::FindLatest(Time time,string ID, int c1, int c2)
 		return result;
 	}
 	else return nullptr;
-}
-
-Flight * System::BuildFlight(){
-	Flight* flight = new Flight();
-	Flight* first=nullptr;
-	Flight* second=nullptr;
-	bool flag;
-	string s;
-	char ch;
-	cin >> s;
-	flight->Airline = s;
-	cin >> flight->ID;
-	cin >> ch;
-	if (ch == 'Y')flight->delayornot = true;
-	else flight->delayornot = false;
-	cin >> s; flight->TakeOff.SetTime(s);
-	cin >> ch;
-	if (ch == 'Y') {
-		first = new Flight(); first->Airline = flight->Airline; first->ID = flight->ID; first->TakeOff = flight->TakeOff;
-		second = new Flight(); second->Airline = flight->Airline; second->ID = flight->ID;
-		flag = true;
-		first->IsHalfFlight = true;
-		second->IsHalfFlight = true;
-		first->delayornot = flight->delayornot;
-		second->delayornot = flight->delayornot;
-	}
-	else flag = false;
-	cin >> s;
-	flight->FromCityID = citygraph.GetIDFromName(s);
-	if (flag) {
-		cin >> s;
-		first->ToCityID = citygraph.GetIDFromName(s); first->FromCityID = flight->FromCityID;
-		second->FromCityID = first->ToCityID;
-	}
-	cin >> s;
-	flight->ToCityID = citygraph.GetIDFromName(s);
-	cin >> flight->Price;
-	if (flag) { cin >> first->Price; cin >> second->Price; second->ToCityID = flight->ToCityID; }
-	cin >> s; flight->CostTime.SetTime(s);
-	if (flag) {
-		cin >> s; first->CostTime.SetTime(s); cin >> s; second->CostTime.SetTime(s);
-	}
-	cin >> s; flight->Land.SetTime(s);
-	if (flag) {
-		cin >> s; second->TakeOff.SetTime(s);
-		cin >> s; first->Land.SetTime(s);
-	}
-	cin >> flight->LeftTickets;
-	if (flag) {
-		cin >> first->LeftTickets;
-		cin >> second->LeftTickets;
-		flight->FirstHalf = first;
-		flight->SecondHalf = second;
-	}
-	return flight;
 }
 
 void System::AddNewFlight(Flight * flight){
@@ -446,10 +442,110 @@ ostream& operator<<(ostream&os, Time& T) {
 	return os;
 }
 
-chain::chain():next(nullptr),id(-1)
-{
+chain::chain():next(nullptr),id(-1){}
+chain::~chain(){}
+SortPack::SortPack():waight(-1),next(nullptr){}
+SortPack::~SortPack(){}
+GNode::GNode(int n):num(n),adjacent(nullptr){}
+GNode::GNode():num(-1),adjacent(nullptr){}
+GNode::~GNode(){}
+
+SubGraph::SubGraph(CityGraph * G):count(G->count){
+	int size = G->count;
+	int** mat = new int*[size];
+	for (int i = 0; i < size; i++) {
+		mat[i] = new int[size];
+	}//完成矩阵创建
+	for(int i=0;i<size;i++)
+		for (int j = 0; j < size; j++)
+			mat[i][j] = 0;
+	FlightEdge* p = nullptr;
+	for (int i = 0; i < size; i++) {
+		p = G->heads[i].Link;
+		while (p != nullptr) {
+			mat[i][p->TargetID] = 1;
+			p = p->next;
+		}
+	}//转化为可及矩阵
+	for (int i = 0; i < size; i++)mat[i][i] = 0;
+	heads = new GNode[size];
+	GNode* temp = nullptr;
+	for (int i = 0; i < size; i++)
+	{
+		heads[i].num = i;
+		for (int j = 0; j < size; j++)
+		{
+			if (mat[i][j] == 1) {
+				temp = new GNode(j);
+				temp->adjacent = heads[i].adjacent;
+				heads[i].adjacent = temp;
+				temp = nullptr;//添加边
+			}
+		}
+	}
+	for (int i = 0; i < size; i++)
+		delete[] mat[i];
+	delete[] mat;
 }
 
-chain::~chain()
+SubGraph::~SubGraph()
 {
+	GNode* p = nullptr;
+	GNode* p0 = nullptr;
+	for (int i = 0; i < count; i++) {
+		p = heads[i].adjacent;
+		while (p != nullptr) {
+			p0 = p; p = p->adjacent; delete p0;
+		}
+	}
+	delete[] heads;
 }
+/*void path(int st, int en)
+{
+	int *visit, *stack, top, v, head = 1, i;
+	struct edgenode *p;
+	visit = (int *)malloc(n * sizeof(int));
+	stack = (int *)malloc((n + 1) * sizeof(int));
+	for (i = 0; i < n; i++) visit[i] = 0;
+	v = st; visit[st] = 1; top = 1; stack[top] = v;
+	do {
+		if (head == 1) {
+			p = g[v].first;
+			head = 0;
+		}
+		else p = p->next;
+		if (p)
+		{
+			if (visit[p->no] == 0)
+			{
+				visit[p->no] = 1;
+				top++;
+				stack[top] = p->no;
+				if (p->no == en)
+				{
+					for (i = 1; i <= top; i++)
+						printf("%d ", stack[i]);
+					printf("\n");
+					visit[en] = 0;
+					top--;
+					v = stack[top];
+					head = 0;
+				}
+				else {
+					v = stack[top];
+					head = 1;
+				}
+			} //
+		}
+		else {
+			visit[stack[top--]] = 0; //
+			if (top)
+			{
+				p = g[stack[top]].first;
+				while (p->no != v) p = p->next;
+				v = stack[top];
+				head = 0;
+			}
+		}
+	} while (top);
+}*/
