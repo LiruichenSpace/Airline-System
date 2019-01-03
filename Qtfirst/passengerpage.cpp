@@ -205,17 +205,28 @@ void PassengerPage::on_searchflight_clicked(){
 
 }
 void PassengerPage::on_search_clicked(){
-	clean();
+	clean(); FNode* head = nullptr;
 	string c1((const char*)ui->fromcity->text().toLocal8Bit().data());
 	string c2((const char*)ui->tocity->text().toLocal8Bit().data());
 	if (!c1.empty() && !c2.empty()) {
-		FNode* head = S->FindFlights(S->GetCityID(c1), S->GetCityID(c2));
-		FNode* temp = head;
-		while (temp != nullptr) {
-			println(temp->fp);
-			temp = temp->next;
+		if (S->DirReachable(S->GetCityID(c1), S->GetCityID(c2))) {
+			head = S->FindFlights(S->GetCityID(c1), S->GetCityID(c2));
 		}
-		FlightManager a; a.Destroyer(head);
+		else {
+			if (S->Reachable(S->GetCityID(c1), S->GetCityID(c2))) {
+				QMessageBox::information(NULL, u8"Notice", u8"无直达航班，将推荐最佳转机路线", QMessageBox::Yes, QMessageBox::Yes);
+				head = S->GetRecommend(S->GetCityID(c1), S->GetCityID(c2));
+			}else QMessageBox::information(NULL, u8"Notice", u8"无直达航班，且无转机路线，非常抱歉！", QMessageBox::Yes, QMessageBox::Yes);
+		}
+		FNode* temp = head;
+		if (temp == nullptr) ui->textEdit->append(u8"      未找到符合要求的航班");
+		else {
+			while (temp != nullptr) {
+				println(temp->fp);
+				temp = temp->next;
+			}
+			FlightManager a; a.Destroyer(head);
+		}
 	}
 }
 void PassengerPage::on_refund_clicked() {

@@ -54,37 +54,6 @@
     </font>
    </property>
   </widget>
-  <widget class="QLabel" name="label_3">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>360</y>
-     <width>71</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>最优航班：</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="bestflight">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>100</x>
-     <y>360</y>
-     <width>113</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>素晴字体</family>
-    </font>
-   </property>
-  </widget>
   <widget class="QTextEdit" name="textEdit">
    <property name="enabled">
     <bool>true</bool>

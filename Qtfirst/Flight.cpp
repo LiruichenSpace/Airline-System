@@ -3,7 +3,7 @@
 #include"Passengers.h"
 #include"Time.h"
 
-Flight::Flight() {
+Flight::Flight() :weight(0){
 	OnBoard = nullptr;
 	Waiting = nullptr;
 	WaitingTail = nullptr;
@@ -226,6 +226,33 @@ FNode * FlightManager::SortByTickets(FNode * head)
 		temp = p->pre;
 		p->next = nullptr; p->pre = nullptr;
 		while (temp != nullptr&&temp->fp->LeftTickets < key)temp = temp->pre;//向前查找
+		if (temp == nullptr) { p->next = head; head->pre = p; head = p; }
+		else {
+			if (temp->next != nullptr)temp->next->pre = p;//若temp右指针空
+			p->next = temp->next;
+			temp->next = p;
+			p->pre = temp;
+		}
+		p = p0;
+	}
+	return head;
+}
+
+FNode * FlightManager::SortByWeight(FNode * head)
+{
+	if (head == nullptr)return nullptr;
+	FNode* p = head->next;
+	FNode* p0 = nullptr;
+	FNode* temp = nullptr;
+	float key;
+	while (p != nullptr) {
+		p->pre->next = p->next;//左边不会空
+		if (p->next != nullptr)p->next->pre = p->pre;//右边若非空,完成摘除
+		key = p->fp->weight;
+		p0 = p->next;//记录下一次p的值
+		temp = p->pre;
+		p->next = nullptr; p->pre = nullptr;
+		while (temp != nullptr&&temp->fp->weight < key)temp = temp->pre;//向前查找
 		if (temp == nullptr) { p->next = head; head->pre = p; head = p; }
 		else {
 			if (temp->next != nullptr)temp->next->pre = p;//若temp右指针空

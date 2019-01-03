@@ -31,6 +31,7 @@ public:
 	int FromCityID;
 	int ToCityID;
 	int Price;//全程价格
+	float weight;
 	Time TakeOff;//起飞时间
 	Time Land;//降落时间
 	Time CostTime;//全程时间
@@ -69,5 +70,6 @@ public:
 	static FNode* SortByPrice(FNode* head);//排序
 	static FNode* SortByTime(FNode* head);
 	static FNode* SortByTickets(FNode* head);
+	static FNode* SortByWeight(FNode* head);
  };
 

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Cities.h"
 #include"Flight.h"
-
+#include<queue>
 City::City(string Name):Link(nullptr) { CityName = Name; }
 
 City::City():Link(nullptr)
@@ -163,4 +163,40 @@ FlightEdge::FlightEdge()
 
 FlightEdge::~FlightEdge()
 {
+}
+
+bool CityGraph::TestPath(int v, int u) {
+	if (v == u)return true;
+	if (v < 0 || v >= count || u < 0 || u >= count)return false;//Ç°ÖÃ¹ýÂË
+	queue<int> Q;
+	FlightEdge* e;
+	int p;
+	int num = 1;
+	int* visited = new int[count];
+	for (int i = 0; i < count; i++)visited[i] = 0;
+	Q.push(v);
+	visited[v] = 1;
+	while (!Q.empty()) {
+		p = Q.front(); Q.pop();
+		e = heads[p].Link;
+		while (e != nullptr) {
+			if (visited[e->TargetID] == 0) {
+				if (e->TargetID == u)return true;
+				Q.push(e->TargetID);
+				visited[e->TargetID] = 1;
+				num++;
+			}
+			e = e->next;
+		}
+	}
+	return false;
+}
+
+bool CityGraph::DirTestPath(int v, int u)
+{
+	FlightEdge* temp = heads[v].Link;
+	while (temp != nullptr) {
+		if (temp->TargetID == u)return true; temp = temp->next;
+	}
+	return false;
 }

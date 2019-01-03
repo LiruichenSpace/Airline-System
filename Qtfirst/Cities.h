@@ -38,6 +38,9 @@ public:
 	int  AddNewCity(string cityname);//添加头结点,返回新城市的ID
 	void AddFlight(Flight* flight);//通过航班变化修改图中内容,考虑经停问题，视情况加1或3条边
 	void DelFlight(Flight* flight);
-	void FindRoute(string start,string end);//开始城市和到达城市
+	void FindRoute(string start,string end);
+	bool TestPath(int v, int u);
+	bool DirTestPath(int v, int u);
+	//开始城市和到达城市
 	int count;
 };

@@ -10,9 +10,7 @@ System::System():cancle(nullptr)
 {
 	LoadFlights();
 	LoadPassengers();
-	//if(FindFlights(GetCityID("长春"), 16)==nullptr)
-	GetWay(GetCityID("长春"), GetCityID("鄂尔多斯"));
-		
+	//GetRecommend(GetCityID("长春"), GetCityID("新加坡"));
 }
 
 
@@ -154,27 +152,25 @@ Flight * System::LoadFlights()//直接读取全部航班信息
 	fp.close();
 	return head;
 }
-SortPack* System::findway(int* visited,int currnode, int c2,stack<int>& CS, SortPack* result,SubGraph* SG) {
+SortPack* System::findway(int* visited,int currnode, int c2,stack<int>& CS, SortPack*& result,SubGraph* SG) {
 	visited[currnode] = 1;
 	CS.push(currnode);
 	GNode* p = nullptr;
+	stack<int> tempS;
 	SortPack* add = nullptr;
 	if (currnode == c2) {
 		if (CS.size() <= 5) {//只接受固定长度的加入链表，防止过度扩充
 			add = new SortPack();
-			add->CityS = CS;
+			while (!CS.empty()) { tempS.push(CS.top());/* qDebug() << QString::fromLocal8Bit(FindCityFromID(CS.top()).c_str());*/ CS.pop(); }
+			
+			while (!tempS.empty()) { CS.push(tempS.top()); add->CityS.push(tempS.top()); tempS.pop(); }
 			if (result == nullptr)result = add;
 			else {
 				add->next = result;
 				result = add;
 			}
-			
-			while (!add->CityS.empty()) {
-				qDebug() << QString::fromLocal8Bit(FindCityFromID(add->CityS.top()).c_str());
-				add->CityS.pop();
-			}
-			qDebug() << "1";
-			
+			add = nullptr;
+			//qDebug() << 1;
 		}
 	}
 	else {
@@ -189,23 +185,69 @@ SortPack* System::findway(int* visited,int currnode, int c2,stack<int>& CS, Sort
 	CS.pop();
 	return result;
 }
+SortPack * System::deployFlights(SortPack * head)
+{
+	SortPack* p=head; FlightEdge* fhead=nullptr; FlightEdge* temp=nullptr;
+	float min; FNode* heads;
+	while (p != nullptr) {//遍历所有Pack
+		int id2 = p->CityS.top(), id1; p->CityS.pop();
+		while (!p->CityS.empty()) {//遍历所有城市
+			id1 = p->CityS.top(); p->CityS.pop();
+			/*fhead = citygraph.heads[id1].Link; temp = fhead;
+			while (temp!=nullptr&&temp->fp->LeftTickets == 0 && temp->fp->ToCityID != id2)temp = temp->next;//防止余票为0
+			min = temp->weight; p->FlightS.push(temp->fp); fhead = temp;//暂时无用，回收
+			while (temp != nullptr) {//遍历边链表
+				if (temp->weight < min&&temp->fp->LeftTickets!=0&&temp->fp->ToCityID==id2) {
+					min = temp->weight;
+					p->FlightS.pop(); p->FlightS.push(temp->fp);//重新入栈
+					fhead = temp;
+				}
+				temp = temp->next;
+			}
+			p->weight += fhead->weight;*///增加权值
+			//qDebug() << QString::fromLocal8Bit(FindCityFromID(id2).c_str());
+			heads = FindFlights(id1, id2);
+			heads = FlightManager::SortByWeight(heads);
+			p->FlightS.push(heads->fp);
+			id2 = id1; p->weight += heads->fp->weight;
+		}
+		//qDebug() << QString::fromLocal8Bit(FindCityFromID(id1).c_str());
+		p = p->next;
+		//qDebug() << 1;
+	}
+	return head;
+}
+SortPack * System::getLowest(SortPack * head)
+{
+	SortPack* temp = nullptr; SortPack* p=head->next; SortPack* p0=head;
+	float min=head->weight;
+	while (p != nullptr) {
+		if (p->weight < min) {
+			temp = p0;//保存前一个
+		}
+		p0 = p; p = p->next;
+	}
+	if (temp == nullptr) {
+		p = head; head = head->next;
+	}
+	else {
+		p = temp->next;
+		temp->next = p->next;
+	}
+	while (head != nullptr) {
+		p0 = head; head = head->next; delete p0;
+	}//释放
+	return p;
+}
 SortPack * System::GetWay(int c1, int c2)
 {
-	stack<int> S;
 	stack<int> save;
 	SortPack* result=nullptr;
 	SortPack* addNode = nullptr;
-	GNode* p = nullptr;
-	GNode* p0 = nullptr;
-	bool flag;
-	int temp;
-	int nm = 0;
 	//////////////////////////图操作
 	SubGraph SG(&citygraph);
 	int* reached = new int[SG.count];
 	for (int i = 0; i < SG.count; i++)reached[i] = 0;//访问数组
-	S.push(c1); 
-	qDebug() << "try";
 	/*while (!S.empty()) {
 		flag = true;
 		p = S.top(); S.pop(); 
@@ -273,7 +315,6 @@ SortPack * System::GetWay(int c1, int c2)
 	}*/
 	findway(reached,c1, c2, save, result, &SG);
 	delete reached;
-	//////////////////////////排序
 	return result;
 }
 
@@ -311,7 +352,35 @@ Flight * System::FindLatest(Time time,string ID, int c1, int c2)
 	else return nullptr;
 }
 
+FNode * System::GetRecommend(int c1, int c2)
+{
+	SortPack* best=GetWay(c1, c2);
+	FNode* head = nullptr;
+	FNode* addNode = nullptr;
+	FNode* tail = nullptr;
+	best = deployFlights(best);
+	best = getLowest(best);
+	while (!best->FlightS.empty()) {
+		addNode = new FNode(best->FlightS.top());
+		best->FlightS.pop();
+		if (head == nullptr) {
+			head = addNode; tail = head;
+		}
+		else {
+			tail->next = addNode;
+			tail = addNode;
+		}
+		addNode = nullptr;
+	}
+	return head;
+}
+
 void System::AddNewFlight(Flight * flight){
+	flight->weight = flight->Price + flight->CostTime.Hour * 60 + flight->CostTime.Min - flight->LeftTickets;
+	if (flight->FirstHalf != nullptr&&flight->SecondHalf != nullptr) {
+		flight->FirstHalf->weight = flight->FirstHalf->Price + flight->FirstHalf->CostTime.Hour * 60 + flight->FirstHalf->CostTime.Min - flight->FirstHalf->LeftTickets;
+		flight->SecondHalf->weight = flight->SecondHalf->Price + flight->SecondHalf->CostTime.Hour * 60 + flight->SecondHalf->CostTime.Min - flight->SecondHalf->LeftTickets;
+	}
 	flightmanager.AddFlight(flight);
 	citygraph.AddFlight(flight);
 }
@@ -363,6 +432,16 @@ bool System::DelFlight(Flight * flight){
 bool System::BuyTickets(Flight * flight, int id)
 {
 	return pmanager.BuyTickets(flight,id);
+}
+
+bool System::Reachable(int c1, int c2)
+{
+	return citygraph.TestPath(c1,c2);
+}
+
+bool System::DirReachable(int c1, int c2)
+{
+	return citygraph.DirTestPath(c1,c2);
 }
 
 int System::GetCityID(string city)
@@ -518,7 +597,7 @@ ostream& operator<<(ostream&os, Time& T) {
 
 chain::chain():next(nullptr),id(-1){}
 chain::~chain(){}
-SortPack::SortPack():waight(-1),next(nullptr){}
+SortPack::SortPack():weight(0),next(nullptr){}
 SortPack::~SortPack(){}
 GNode::GNode(int n):num(n),adjacent(nullptr){}
 GNode::GNode():num(-1),adjacent(nullptr){}

@@ -17,9 +17,9 @@ class SortPack {
 public:
 	SortPack();
 	~SortPack();
-	int waight;//最终计算的权值
+	int weight;//最终计算的权值
 	SortPack* next;
-	queue<Flight*> FlightQ;//保存航班号//或者保存指针？（易于统计）
+	stack<Flight*> FlightS;//保存航班号//或者保存指针？（易于统计）
 	stack<int> CityS;//保存城市路径
 };
 class GNode {
@@ -51,29 +51,30 @@ public:
 	void GetRefund(Passenger* p);
 	bool DelFlight(Flight* flight);
 	bool BuyTickets(Flight * flight, int id);
+	bool Reachable(int c1, int c2);
+	bool DirReachable(int c1, int c2);
 	int GetCityID(string city);
 	string FindCityFromID(int index);
 	Flight* FindFlight(string flightID);
 	Flight* FindLatest(Time time,string ID, int c1, int c2);//实现可优化
 	FNode* GetRecommend(int c1, int c2);//功能6，终局
-	SortPack* GetWay(int c1,int c2);//返回所有完成排序路径链表
-	SortPack* findway(int* visited,int currnode, int c2, stack<int>& CS, SortPack* result,SubGraph* SG);
 	FNode* FindFlights(int id1,int id2);
 	FNode* FindFlightsByAirline(string airline);
 	Passenger* LoadPassenger();
 	Passenger* FindPassenger(int id);
-	
+	SortPack* GetWay(int c1, int c2);//返回所有完成排序路径链表
 private:
 	chain* cancle;
 	FlightManager flightmanager;
 	CityGraph citygraph;
 	PassengersManager pmanager;
 	Flight* LoadFlights();
-	SortPack * findway(int c1, int c2, SortPack * result);
+	SortPack* findway(int* visited, int currnode, int c2, stack<int>& CS, SortPack*& result, SubGraph* SG);//递归找到所有待比路径，第一步
+	SortPack* deployFlights(SortPack* head);//将航班指针入栈并计算权值，第二步
+	SortPack* getLowest(SortPack* head);//找出权值最小的一条路，第三步
 	bool SaveFlights();
 	bool SavePassengers();
 	void LoadPassengers();
-	void CountIndex();//计算两个复合指数，用来计算复合权值，假定单次加入对指数影响很小
 };
 fstream& operator<<(fstream& os, Time& T);
 ostream& operator<<(ostream&os, Time& T);

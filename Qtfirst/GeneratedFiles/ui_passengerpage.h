@@ -26,8 +26,6 @@ public:
     QLabel *label;
     QLabel *label_2;
     QLineEdit *flightid;
-    QLabel *label_3;
-    QLineEdit *bestflight;
     QTextEdit *textEdit;
     QLineEdit *fromcity;
     QLineEdit *tocity;
@@ -69,14 +67,6 @@ public:
         QFont font;
         font.setFamily(QString::fromUtf8("\347\264\240\346\231\264\345\255\227\344\275\223"));
         flightid->setFont(font);
-        label_3 = new QLabel(PassengerPage);
-        label_3->setObjectName(QString::fromUtf8("label_3"));
-        label_3->setGeometry(QRect(40, 360, 71, 16));
-        bestflight = new QLineEdit(PassengerPage);
-        bestflight->setObjectName(QString::fromUtf8("bestflight"));
-        bestflight->setEnabled(false);
-        bestflight->setGeometry(QRect(100, 360, 113, 20));
-        bestflight->setFont(font);
         textEdit = new QTextEdit(PassengerPage);
         textEdit->setObjectName(QString::fromUtf8("textEdit"));
         textEdit->setEnabled(true);
@@ -167,7 +157,6 @@ public:
         PassengerPage->setWindowTitle(QApplication::translate("PassengerPage", "\347\245\250\345\212\241\351\241\265\351\235\242", nullptr));
         label->setText(QApplication::translate("PassengerPage", "<html><head/><body><p><span style=\" font-size:12pt; font-weight:600; color:#ff0000;\">\344\271\230\345\256\242\347\245\250\345\212\241\347\256\241\347\220\206\351\241\265</span></p></body></html>", nullptr));
         label_2->setText(QApplication::translate("PassengerPage", "\350\210\252\347\217\255\345\217\267\357\274\232", nullptr));
-        label_3->setText(QApplication::translate("PassengerPage", "\346\234\200\344\274\230\350\210\252\347\217\255\357\274\232", nullptr));
         buy->setText(QApplication::translate("PassengerPage", "\350\264\255\347\245\250", nullptr));
         label_4->setText(QApplication::translate("PassengerPage", "\350\265\267\347\202\271\347\253\231\357\274\232", nullptr));
         label_5->setText(QApplication::translate("PassengerPage", "\347\233\256\346\240\207\347\253\231\357\274\232", nullptr));
