@@ -11,7 +11,8 @@ System::System():cancle(nullptr)
 	LoadFlights();
 	LoadPassengers();
 	//if(FindFlights(GetCityID("长春"), 16)==nullptr)
-		GetWay(GetCityID("长春"), GetCityID("新加坡"));
+	GetWay(GetCityID("长春"), GetCityID("鄂尔多斯"));
+		
 }
 
 
@@ -153,7 +154,41 @@ Flight * System::LoadFlights()//直接读取全部航班信息
 	fp.close();
 	return head;
 }
-
+SortPack* System::findway(int* visited,int currnode, int c2,stack<int>& CS, SortPack* result,SubGraph* SG) {
+	visited[currnode] = 1;
+	CS.push(currnode);
+	GNode* p = nullptr;
+	SortPack* add = nullptr;
+	if (currnode == c2) {
+		if (CS.size() <= 5) {//只接受固定长度的加入链表，防止过度扩充
+			add = new SortPack();
+			add->CityS = CS;
+			if (result == nullptr)result = add;
+			else {
+				add->next = result;
+				result = add;
+			}
+			
+			while (!add->CityS.empty()) {
+				qDebug() << QString::fromLocal8Bit(FindCityFromID(add->CityS.top()).c_str());
+				add->CityS.pop();
+			}
+			qDebug() << "1";
+			
+		}
+	}
+	else {
+		p = SG->heads[currnode].adjacent;
+		while (p != nullptr) {
+			if (visited[p->num] == 0)
+				findway(visited,p->num, c2, CS, result, SG);
+			p = p->adjacent;
+		}
+	}
+	visited[currnode] = 0;
+	CS.pop();
+	return result;
+}
 SortPack * System::GetWay(int c1, int c2)
 {
 	stack<int> S;
@@ -161,15 +196,52 @@ SortPack * System::GetWay(int c1, int c2)
 	SortPack* result=nullptr;
 	SortPack* addNode = nullptr;
 	GNode* p = nullptr;
+	GNode* p0 = nullptr;
 	bool flag;
 	int temp;
+	int nm = 0;
 	//////////////////////////图操作
 	SubGraph SG(&citygraph);
 	int* reached = new int[SG.count];
 	for (int i = 0; i < SG.count; i++)reached[i] = 0;//访问数组
-	S.push(c1);
+	S.push(c1); 
 	qDebug() << "try";
-	while (!S.empty()) {
+	/*while (!S.empty()) {
+		flag = true;
+		p = S.top(); S.pop(); 
+		if (p != nullptr) {
+			reached[save.top()] = 0; save.pop();
+			save.push(p->num); reached[p->num] = 1; p0 = p;
+			while (p0 != nullptr&&reached[p0->num] == 1) { p0 = p0->adjacent; }//过滤已访问
+			S.push(p0);//压入该层下一个
+			if (p->num != c2) {
+				p0 = SG.heads[p->num].adjacent;
+				while (p0 != nullptr&&reached[p0->num] == 1) { p0 = p0->adjacent; }//过滤已访问
+				if (p0 != nullptr)
+				{
+					S.push(p0); save.push(p0->num); reached[p0->num] = 1;
+				}//可能为空,存入下一层的邻接
+			}
+			else{//若找到路径
+				addNode = new SortPack();
+				addNode->CityS = save;
+				if (result == nullptr)result = addNode;
+				else addNode->next = result; result = addNode; nm++;
+				while (!addNode->CityS.empty()) {
+					qDebug() << QString::fromLocal8Bit(FindCityFromID(addNode->CityS.top()).c_str());
+					addNode->CityS.pop();
+				}
+				////回溯处理
+				reached[c2] = 0;
+				save.pop();
+			}
+		}
+		else {
+			reached[save.top()] = 0;
+			save.pop();
+		}
+	}*/
+	/*while (!S.empty()) {
 		flag = false;
 		temp = S.top(); save.push(temp); reached[temp] = 1;
 		S.pop(); 
@@ -178,11 +250,12 @@ SortPack * System::GetWay(int c1, int c2)
 			addNode->CityS = save;
 			if (result == nullptr)result = addNode;
 			else addNode->next = result; result = addNode;
+			//qDebug() << addNode->CityS.size();
 			while (!addNode->CityS.empty()) {
 				qDebug() << QString::fromLocal8Bit(FindCityFromID(addNode->CityS.top()).c_str());
 				addNode->CityS.pop();
 			}
-			qDebug() << "over";
+			qDebug() << "over"; nm++;
 			save.pop(); reached[temp] = 0;
 			continue;
 		}
@@ -194,10 +267,11 @@ SortPack * System::GetWay(int c1, int c2)
 			}
 			p = p->adjacent;
 		}
-		if (!flag) {//若是死路
+		if (flag==false) {//若是死路
 			save.pop(); reached[temp] = 0;
 		}
-	}
+	}*/
+	findway(reached,c1, c2, save, result, &SG);
 	delete reached;
 	//////////////////////////排序
 	return result;
@@ -467,7 +541,6 @@ SubGraph::SubGraph(CityGraph * G):count(G->count){
 			p = p->next;
 		}
 	}//转化为可及矩阵
-	for (int i = 0; i < size; i++)mat[i][i] = 0;
 	heads = new GNode[size];
 	GNode* temp = nullptr;
 	for (int i = 0; i < size; i++)

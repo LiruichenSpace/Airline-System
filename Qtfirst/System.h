@@ -57,17 +57,19 @@ public:
 	Flight* FindLatest(Time time,string ID, int c1, int c2);//实现可优化
 	FNode* GetRecommend(int c1, int c2);//功能6，终局
 	SortPack* GetWay(int c1,int c2);//返回所有完成排序路径链表
+	SortPack* findway(int* visited,int currnode, int c2, stack<int>& CS, SortPack* result,SubGraph* SG);
 	FNode* FindFlights(int id1,int id2);
 	FNode* FindFlightsByAirline(string airline);
 	Passenger* LoadPassenger();
 	Passenger* FindPassenger(int id);
-
+	
 private:
 	chain* cancle;
 	FlightManager flightmanager;
 	CityGraph citygraph;
 	PassengersManager pmanager;
 	Flight* LoadFlights();
+	SortPack * findway(int c1, int c2, SortPack * result);
 	bool SaveFlights();
 	bool SavePassengers();
 	void LoadPassengers();
